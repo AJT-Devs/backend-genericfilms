@@ -14,7 +14,8 @@
     "@prisma/client": "^6.7.0",
     "cors": "^2.8.5",
     "express": "^5.1.0",
-    "puppeteer": "^24.8.0"
+    "puppeteer": "^24.8.0",
+    "zod": "^3.24.3"
   },
   "devDependencies": {
     "prisma": "^6.7.0"
