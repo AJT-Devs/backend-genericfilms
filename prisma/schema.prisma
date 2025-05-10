@@ -1,1 +1,81 @@
-//so testando se da pra enviar do meu pc de boa
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model admin{
+    id       Int     @id @default(autoincrement())
+    name     String  @db.VarChar(255)
+    email    String  @unique(map: "email") @db.VarChar(255)
+    password String  @db.VarChar(50)
+    cargo    String  @db.VarChar(50)
+}
+
+model user{
+    id        Int      @id @default(autoincrement())
+    name      String   @db.VarChar(255)
+    email     String   @unique(map: "email") @db.VarChar(255)
+    password  String   @db.VarChar(50)
+    cpf       BigInt   @db.BigInt
+    BirthDate DateTime @db.Date
+    reserve reserve[]
+}
+
+model movie{
+    id             Int      @id @default(autoincrement()) 
+    title          String   @unique @db.VarChar(255)
+    duration       Int      @db.Int
+    trailer        String   @db.VarChar(255)
+    synopsis       String   @db.VarChar(999)
+    director       String   @db.VarChar(255)
+    releaseDate    DateTime @db.Date
+    classification String   @db.Char(2)
+    cast           String   @db.VarChar(999)
+    gender         String   @db.VarChar(50)
+    session session[]
+}
+
+model cinema{
+    id      Int    @id @default(autoincrement()) 
+    city    String @db.VarChar(255)
+    address String @db.VarChar(255)
+    uf      String @db.Char(2)
+    room room[]
+}
+
+model room{
+    id       Int    @id @default(autoincrement()) 
+    name     String @db.Char(2)
+    numSeats Int    @db.Int
+    numPCD   Int    @db.Int
+    cinema   cinema @relation(fields: [idCinema], references: [id])
+    idCinema Int    @unique
+    session session[]
+}
+
+model session{
+    id        Int      @id @default(autoincrement())
+    startDate DateTime @db.DateTime()
+    endHour   String   @db.VarChar(10)
+    price     Decimal  @db.Decimal(5,2)
+    format    String   @db.Char(2)
+    language  String   @db.VarChar(50)
+    room      room     @relation(fields: [idRoom], references: [id])
+    idRoom    Int      @unique
+    movie     movie    @relation(fields: [idMovie], references: [id])
+    idMovie   Int      @unique
+    reserve reserve[]
+}
+
+model reserve{
+    id        Int     @id @default(autoincrement())
+    method    String  @db.VarChar(50)
+    user      user    @relation(fields: [idUser], references: [id])
+    idUser    Int     @unique
+    session   session @relation(fields: [idSession], references: [id])
+    idSession Int     @unique
+}
