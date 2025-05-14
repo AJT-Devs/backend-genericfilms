@@ -1,17 +1,17 @@
-import {get} from "../../models/movie.js"
+import {get} from "../../models/room.js"
 
-export default async function getMovie(req, res, next) {
+export default async function getRoom(req, res, next) {
     try{
         const {id} = req.params
-        // const {success, error, data: movieValidated} = movieValidator(+id, {city: true, adress: true, uf: true})
+        // const {success, error, data: roomValidated} = roomValidator(+id, {city: true, adress: true, uf: true})
         
         // Aplicar verificação se houver erro
         
         const result = await get(+id)
-        //const result = await get(movieValidated.id)
+        //const result = await get(roomValidated.id)
 
         return res.json({
-            movie: result
+            room: result
         })
     }
     catch(error){

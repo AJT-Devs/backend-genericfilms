@@ -1,6 +1,6 @@
-import {getList} from '../../models/cinema.js'
+import {getList} from '../../models/room.js'
 
-export default async function getListCinema(res, next) {
+export default async function getListRoom(res, next) {
     try {
         const result = await getList()
         return res.json(result)

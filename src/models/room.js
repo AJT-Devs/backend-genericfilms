@@ -7,16 +7,15 @@ const prisma = new PrismaClient()
 
 // Função de validação
 
-export async function create(movie) {
-    //Banner informado somente como URL
-    const result = await prisma.movie.create({
-        data: movie
+export async function create(room) {
+    const result = await prisma.room.create({
+        data: room
     })
 
     return result
 }
 export async function remove(id) {
-    const result = await prisma.movie.delete({
+    const result = await prisma.room.delete({
         where:{
             id
         }
@@ -25,7 +24,7 @@ export async function remove(id) {
     return result
 }
 export async function get(id) {
-    const result = await prisma.movie.findUnique({
+    const result = await prisma.room.findUnique({
         where:{
             id
         }
@@ -34,17 +33,17 @@ export async function get(id) {
     return result
 }
 export async function getList() {
-    const result = await prisma.movie.findMany()
+    const result = await prisma.room.findMany()
     
     return result
 }
 
-export async function update(id, movie) {
-    const result = await prisma.movie.update({
+export async function update(id, room) {
+    const result = await prisma.room.update({
         where:{
             id
         },
-        data: movie
+        data: room
     })
 
     return result
