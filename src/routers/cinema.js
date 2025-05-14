@@ -8,16 +8,10 @@ import deleteCinema from '../controllers/cinema/deleteCinema.js';
 const cinema = express.Router();
 
 
-cinema.get('/', getCinema);
+cinema.get('/:id', getCinema);
 cinema.get('/list', getListCinema);
 cinema.post('/', postCinema);
-<<<<<<< HEAD
 cinema.put('/:id', putCinema);   
 cinema.delete('/:id', deleteCinema);
-=======
-cinema.put('/', putCinema);   
-cinema.patch('/', patchCinema); 
-cinema.delete('/', deleteCinema);
->>>>>>> 84b5e48273429bfce194603cc69f931f88c02a7c
 
 export default cinema;
