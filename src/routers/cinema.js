@@ -9,11 +9,11 @@ import deleteCinema from '../controllers/cinema/deleteCinema.js';
 const cinema = express.Router();
 
 
-cinema.get('/', getCinema);
+cinema.get('/:id', getCinema);
 cinema.get('/list', getListCinema);
 cinema.post('/', postCinema);
-cinema.put('/', putCinema);   
-cinema.patch('/', patchCinema); 
-cinema.delete('/', deleteCinema);
+cinema.put('/:id', putCinema);   
+cinema.patch('/:id', patchCinema); 
+cinema.delete('/:id', deleteCinema);
 
 export default cinema;
