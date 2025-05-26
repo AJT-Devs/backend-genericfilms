@@ -1,5 +1,9 @@
+import { selectReserve } from "../../models/reserve.js"
+
 export async function getReserve(req, res) {
-    return res.send("get reserve")
+    const {id} = req.params;
+    const result = await selectReserve(+id);
+    return res.json(result); 
 }
 
 export default getReserve
