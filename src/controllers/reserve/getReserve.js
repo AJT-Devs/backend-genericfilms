@@ -1,9 +1,7 @@
-import { selectReserve } from "../../models/reserve.js"
+import { readReserve } from "../../models/reserve.js"
 
-export async function getReserve(req, res) {
+export default async function getReserve(req, res) {
     const {id} = req.params;
-    const result = await selectReserve(+id);
+    const result = await readReserve(+id);
     return res.json(result); 
 }
-
-export default getReserve

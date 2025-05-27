@@ -1,4 +1,4 @@
-import {get} from "../../models/room.js"
+import {readRoom} from "../../models/room.js"
 
 export default async function getRoom(req, res, next) {
     try{

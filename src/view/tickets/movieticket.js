@@ -7,13 +7,23 @@ export default function movieTicket(content){
     <title>Ticket</title>
 </head>
 <body>
-    ${content.id}
-    ${content.buyDate}
-    ${content.method}
-    ${content.isPCD}
-    ${content.seat}
-    ${content.idUser}
-    ${content.idSession}
+<ul>
+<li>${content.isPCD}</li>
+<li>${content.seat}</li>
+<li>${content.startDate}</li>
+<li>${content.endHour}</li>
+<li>${content.format}</li>
+<li>${content.language}</li>
+<li>${content.roomName}</li>
+<li>${content.cinemaName}</li>
+<li>${content.cinemaAddress}</li>
+<li>${content.cinemaCity}</li>
+<li>${content.cinemaUF}</li>
+<li>${content.movieTitle}</li>
+<li>${content.movieClassification}</li>
+<li>${content.userName}</li>
+<li>${content.userCPF}</li>
+</ul>
 </body>
 </html>`
 }

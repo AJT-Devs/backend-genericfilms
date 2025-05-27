@@ -1,4 +1,4 @@
-import {getList} from '../../models/movie.js'
+import {listMovie} from '../../models/movie.js'
 
 export default async function getListMovie(res, next) {
     try {

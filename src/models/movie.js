@@ -24,7 +24,7 @@ export async function remove(id) {
 
     return result
 }
-export async function get(id) {
+export async function readMovie(id) {
     const result = await prisma.movie.findUnique({
         where:{
             id
@@ -33,7 +33,7 @@ export async function get(id) {
 
     return result
 }
-export async function getList() {
+export async function listMovie() {
     const result = await prisma.movie.findMany()
     
     return result

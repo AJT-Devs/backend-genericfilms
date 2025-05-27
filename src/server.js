@@ -5,6 +5,7 @@ import cinema from './routers/cinema.js';
 import session from './routers/session.js';
 import admin from './routers/admin.js';
 import reserve from './routers/reserve.js';
+import ticket from './routers/ticket.js';
 
 const app = express();
 const port = 3000;
@@ -15,6 +16,7 @@ app.use('/cinema', cinema);
 app.use('/session', session);
 app.use('/admin', admin);
 app.use('/reserve', reserve);
+app.use('/ticket', ticket);
 
 app.get('/', (req, res) => {
     return res.send("hello world");

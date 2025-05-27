@@ -23,7 +23,7 @@ export async function remove(id) {
 
     return result
 }
-export async function get(id) {
+export async function readRoom(id) {
     const result = await prisma.room.findUnique({
         where:{
             id
@@ -32,7 +32,7 @@ export async function get(id) {
 
     return result
 }
-export async function getList() {
+export async function listRoom() {
     const result = await prisma.room.findMany()
     
     return result

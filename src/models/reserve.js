@@ -7,7 +7,7 @@ export async function listReserve(){
     return result;
 }
 
-export async function selectReserve(id){
+export async function readReserve(id){
     const result = await prisma.reserve.findUnique({
         where: {id}
     });
