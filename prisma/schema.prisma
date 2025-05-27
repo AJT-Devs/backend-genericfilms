@@ -79,6 +79,8 @@ model reserve{
     method    String   @db.VarChar(50)
     isPCD     Boolean  @db.Bit(1)
     seat      Int      
+    isHalf    Boolean  @db.Bit(1)
+    halfDoc   String?  @db.VarChar(50)
     user      user     @relation(fields: [idUser], references: [id])
     idUser    Int      @unique
     session   session  @relation(fields: [idSession], references: [id])
