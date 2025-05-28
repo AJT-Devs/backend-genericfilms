@@ -42,7 +42,8 @@ model movie{
 }
 
 model cinema{
-    id      Int    @id @default(autoincrement()) 
+    id      Int    @id @default(autoincrement())
+    name    String @db.VarChar(100) @unique 
     city    String @db.VarChar(255)
     address String @db.VarChar(255)
     uf      String @db.Char(2)

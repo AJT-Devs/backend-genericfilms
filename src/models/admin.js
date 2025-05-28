@@ -1,0 +1,22 @@
+import { PrismaClient } from "@prisma/client"
+
+const prisma = new PrismaClient();
+
+export async function listAdmin(){
+    const result = await prisma.admin.findMany();
+    return result;
+}
+
+export async function readAdmin(id){
+    const result = await prisma.admin.findUnique({
+        where: {id}
+    });
+    return result;
+}
+
+export async function createAdmin(content){
+    const result = await prisma.admin.create({
+        data: content
+    })
+    return result;
+}

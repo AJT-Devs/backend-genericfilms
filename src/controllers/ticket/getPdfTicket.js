@@ -22,7 +22,27 @@ export default async function getPdfTicket(req, res) {
 
     const cinema = await readCinema(room.idCinema);
 
-    const result = {
+    function itsHalf(){
+            if(reserve.isHalf){
+        return {
+            isPCD : reserve.isPCD,
+            seat : reserve.seat,
+            halfDoc : reserve.halfDoc,
+            startDate : session.startDate,
+            endHour : session.endHour,
+            format : session.format,
+            language : session.language,
+            roomName : room.name,
+            cinemaName : cinema.name,
+            cinemaAddress : cinema.address,
+            cinemaCity : cinema.city,
+            cinemaUF : cinema.uf,
+            movieTitle : movie.title,
+            movieClassification : movie.classification
+            }
+        }
+
+        return {
             isPCD : reserve.isPCD,
             seat : reserve.seat,
             startDate : session.startDate,
@@ -35,10 +55,11 @@ export default async function getPdfTicket(req, res) {
             cinemaCity : cinema.city,
             cinemaUF : cinema.uf,
             movieTitle : movie.title,
-            movieClassification : movie.classification,
-            userName : user.name,
-            userCPF : user.cpf.toString()
-        }
+            movieClassification : movie.classification
+            }
+    }
+
+    const result = itsHalf();
 
     const browser = await puppeteer.launch({headless: false});
         const page = await browser.newPage();

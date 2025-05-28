@@ -21,8 +21,6 @@ export default function movieTicket(content){
 <li>${content.cinemaUF}</li>
 <li>${content.movieTitle}</li>
 <li>${content.movieClassification}</li>
-<li>${content.userName}</li>
-<li>${content.userCPF}</li>
 </ul>
 </body>
 </html>`

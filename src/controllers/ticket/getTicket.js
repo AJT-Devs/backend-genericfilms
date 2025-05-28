@@ -6,21 +6,41 @@ import { readRoom } from "../../models/room.js";
 import { readCinema } from "../../models/cinema.js";
 
 export default async function getTicket(req, res){
-        const {id} = req.params;
+    const {id} = req.params;
 
-        const reserve = await readReserve(+id);
+    const reserve = await readReserve(+id);
     
-        const user = await readUser(reserve.idUser);
+    const user = await readUser(reserve.idUser);
     
-        const session = await readSession(reserve.idSession);
+    const session = await readSession(reserve.idSession);
     
-        const movie = await readMovie(session.idMovie);
+    const movie = await readMovie(session.idMovie);
     
-        const room = await readRoom(session.idRoom);
+    const room = await readRoom(session.idRoom);
     
-        const cinema = await readCinema(room.idCinema);
-    
-        const result = {
+    const cinema = await readCinema(room.idCinema);
+
+    function itsHalf(){
+            if(reserve.isHalf){
+        return {
+            isPCD : reserve.isPCD,
+            seat : reserve.seat,
+            halfDoc : reserve.halfDoc,
+            startDate : session.startDate,
+            endHour : session.endHour,
+            format : session.format,
+            language : session.language,
+            roomName : room.name,
+            cinemaName : cinema.name,
+            cinemaAddress : cinema.address,
+            cinemaCity : cinema.city,
+            cinemaUF : cinema.uf,
+            movieTitle : movie.title,
+            movieClassification : movie.classification
+            }
+        }
+
+        return {
             isPCD : reserve.isPCD,
             seat : reserve.seat,
             startDate : session.startDate,
@@ -33,9 +53,12 @@ export default async function getTicket(req, res){
             cinemaCity : cinema.city,
             cinemaUF : cinema.uf,
             movieTitle : movie.title,
-            movieClassification : movie.classification,
-            userName : user.name,
-            userCPF : user.cpf.toString()
-        }
-        return res.json(result);       
+            movieClassification : movie.classification
+            }
+    }
+
+    const result = itsHalf();
+
+    return res.json(result);       
 }
+

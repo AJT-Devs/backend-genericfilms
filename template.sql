@@ -1,6 +1,6 @@
 use genericfilmsdb;
 select * from cinema;
-insert into cinema values(default, "Caraguatatuba", "Rua 5 Martin de Sá 50", "SP");
+insert into cinema values(default, "Generic Films MS","Caraguatatuba", "Rua 5 Martin de Sá 50", "SP");
 
 select * from room;
 insert into room values(default, "A", 100, 10, 1);
@@ -15,4 +15,4 @@ select * from user;
 insert into user values(default, "angelo alves yoshimura generic", "angeloayg@genericfilms.com", "password", 12345678900, now(), 40028922);
 
 select * from reserve;
-insert into reserve values(default, now(), "pix", 0, 50, 2, 1);
+insert into reserve values(default, now(), "pix", 0, 50, 0, null, 1, 1);
