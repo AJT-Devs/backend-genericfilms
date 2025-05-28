@@ -56,7 +56,7 @@ model room{
     numSeats Int    @db.Int
     numPCD   Int    @db.Int
     cinema   cinema @relation(fields: [idCinema], references: [id])
-    idCinema Int    @unique
+    idCinema Int    
     session session[]
 }
 
@@ -68,9 +68,9 @@ model session{
     format    String   @db.Char(2)
     language  String   @db.VarChar(50)
     room      room     @relation(fields: [idRoom], references: [id])
-    idRoom    Int      @unique
+    idRoom    Int      
     movie     movie    @relation(fields: [idMovie], references: [id])
-    idMovie   Int      @unique
+    idMovie   Int      
     reserve reserve[]
 }
 
@@ -83,7 +83,7 @@ model reserve{
     isHalf    Boolean  @db.Bit(1)
     halfDoc   String?  @db.VarChar(50)
     user      user     @relation(fields: [idUser], references: [id])
-    idUser    Int      @unique
+    idUser    Int      
     session   session  @relation(fields: [idSession], references: [id])
-    idSession Int      @unique
+    idSession Int      
 }
