@@ -7,44 +7,41 @@ const prisma = new PrismaClient()
 
 // Função de validação
 
-export async function create(room) {
-    const result = await prisma.room.create({
-        data: room
-    })
-
-    return result
+export async function listRoom() {
+    const result = await prisma.room.findMany();
+    
+    return result;
 }
-export async function remove(id) {
-    const result = await prisma.room.delete({
-        where:{
-            id
-        }
-    })
 
-    return result
-}
 export async function readRoom(id) {
     const result = await prisma.room.findUnique({
-        where:{
-            id
-        }
-    })
+        where:{id}
+    });
 
-    return result
-}
-export async function listRoom() {
-    const result = await prisma.room.findMany()
-    
-    return result
+    return result;
 }
 
-export async function update(id, room) {
-    const result = await prisma.room.update({
-        where:{
-            id
-        },
+export async function createRoom(room) {
+    const result = await prisma.room.create({
         data: room
-    })
+    });
 
-    return result
+    return result;
+}
+
+export async function updateRoom(id, room) {
+    const result = await prisma.room.update({
+        where:{id},
+        data: room
+    });
+
+    return result;
+}
+
+export async function deleteRoom(id) {
+    const result = await prisma.room.delete({
+        where:{id}
+    });
+
+    return result;
 }

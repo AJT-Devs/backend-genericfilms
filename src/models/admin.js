@@ -17,6 +17,21 @@ export async function readAdmin(id){
 export async function createAdmin(content){
     const result = await prisma.admin.create({
         data: content
-    })
+    });
+    return result;
+}
+
+export async function updateAdmin(id, content){
+    const result = await prisma.admin.update({
+        where: {id},
+        data: content
+    });
+    return result;
+}
+
+export async function deleteAdmin(id){
+    const result = await prisma.admin.delete({
+        where: {id}
+    });
     return result;
 }

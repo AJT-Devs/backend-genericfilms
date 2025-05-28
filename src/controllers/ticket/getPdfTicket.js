@@ -27,6 +27,7 @@ export default async function getPdfTicket(req, res) {
         return {
             isPCD : reserve.isPCD,
             seat : reserve.seat,
+            typeReserve: "Meia",
             halfDoc : reserve.halfDoc,
             startDate : session.startDate,
             endHour : session.endHour,
@@ -45,6 +46,7 @@ export default async function getPdfTicket(req, res) {
         return {
             isPCD : reserve.isPCD,
             seat : reserve.seat,
+            typeReserve: "Inteira",
             startDate : session.startDate,
             endHour : session.endHour,
             format : session.format,
