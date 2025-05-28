@@ -1,4 +1,4 @@
-import {getList} from '../../models/cinema.js'
+import {listCinema} from '../../models/cinema.js'
 
 export default async function getListCinema(res, next) {
     try {

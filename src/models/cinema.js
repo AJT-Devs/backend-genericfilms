@@ -23,7 +23,7 @@ export async function remove(id) {
 
     return result
 }
-export async function get(id) {
+export async function readCinema(id) {
     const result = await prisma.cinema.findUnique({
         where:{
             id
@@ -32,7 +32,7 @@ export async function get(id) {
 
     return result
 }
-export async function getList() {
+export async function listCinema() {
     const result = await prisma.cinema.findMany()
     
     return result

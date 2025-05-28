@@ -10,6 +10,7 @@ import cinema from './routers/cinema.js';
 import session from './routers/session.js';
 import admin from './routers/admin.js';
 import reserve from './routers/reserve.js';
+import ticket from './routers/ticket.js';
 
 const port = 3000;
 
@@ -30,6 +31,7 @@ app.use('/session', session);
 app.use('/admin', admin);
 app.use('/reserve', reserve);
 app.use('/upload', uploadRoutes);
+app.use('/ticket', ticket);
 
 // funções
 app.get('/', (req, res) => {

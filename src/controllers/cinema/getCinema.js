@@ -1,4 +1,4 @@
-import {get} from "../../models/cinema.js"
+import {readCinema} from "../../models/cinema.js"
 
 export default async function getCinema(req, res, next) {
     try{

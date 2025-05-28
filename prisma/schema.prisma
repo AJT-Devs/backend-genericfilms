@@ -20,8 +20,9 @@ model user{
     name      String   @db.VarChar(255)
     email     String   @unique(map: "email") @db.VarChar(255)
     password  String   @db.VarChar(50)
-    cpf       BigInt   @db.BigInt
+    cpf       BigInt   @db.BigInt @unique
     BirthDate DateTime @db.Date
+    telNumber BigInt   @db.BigInt @unique
     reserve reserve[]
 }
 
@@ -41,7 +42,8 @@ model movie{
 }
 
 model cinema{
-    id      Int    @id @default(autoincrement()) 
+    id      Int    @id @default(autoincrement())
+    name    String @db.VarChar(100) @unique 
     city    String @db.VarChar(255)
     address String @db.VarChar(255)
     uf      String @db.Char(2)
@@ -60,8 +62,8 @@ model room{
 
 model session{
     id        Int      @id @default(autoincrement())
-    startDate DateTime @db.DateTime()
-    endHour   String   @db.VarChar(10)
+    startDate DateTime @db.Timestamp()
+    endHour   DateTime @db.Time()
     price     Decimal  @db.Decimal(5,2)
     format    String   @db.Char(2)
     language  String   @db.VarChar(50)
@@ -73,10 +75,15 @@ model session{
 }
 
 model reserve{
-    id        Int     @id @default(autoincrement())
-    method    String  @db.VarChar(50)
-    user      user    @relation(fields: [idUser], references: [id])
-    idUser    Int     @unique
-    session   session @relation(fields: [idSession], references: [id])
-    idSession Int     @unique
+    id        Int      @id @default(autoincrement())
+    buyDate   DateTime @db.Timestamp()
+    method    String   @db.VarChar(50)
+    isPCD     Boolean  @db.Bit(1)
+    seat      Int      
+    isHalf    Boolean  @db.Bit(1)
+    halfDoc   String?  @db.VarChar(50)
+    user      user     @relation(fields: [idUser], references: [id])
+    idUser    Int      @unique
+    session   session  @relation(fields: [idSession], references: [id])
+    idSession Int      @unique
 }

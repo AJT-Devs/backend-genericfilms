@@ -1,4 +1,4 @@
-import {get} from "../../models/movie.js"
+import {readMovie} from "../../models/movie.js"
 
 export default async function getMovie(req, res, next) {
     try{
