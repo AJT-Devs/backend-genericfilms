@@ -39,7 +39,7 @@ export async function updateMovie(id, movie) {
     return result;
 }
 
-export async function deleteMovie(id) {
+export async function removeMovie(id) {
     const result = await prisma.movie.delete({
         where:{id}
     });

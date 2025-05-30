@@ -38,7 +38,7 @@ export async function updateCinema(id, cinema) {
     return result;
 }
 
-export async function deleteCinema(id) {
+export async function removeCinema(id) {
     const result = await prisma.cinema.delete({
         where: {id}
     });

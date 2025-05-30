@@ -1,4 +1,4 @@
-import {update} from "../../models/cinema.js"
+import {updateCinema} from "../../models/cinema.js"
 
 export default async function putCinema(req, res, next) {
     try{
@@ -8,7 +8,7 @@ export default async function putCinema(req, res, next) {
             
             // Aplicar verificação se houver erro
             
-            const result = await update(+id, cinema)
+            const result = await updateCinema(+id, cinema)
             //const result = await update(cinemaValidated.id)
     
             return res.json({

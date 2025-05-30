@@ -1,4 +1,4 @@
-import {remove} from "../../models/movie.js"
+import {removeMovie} from "../../models/movie.js"
 
 export default async function deleteMovie(req, res, next) {
     try{
@@ -8,7 +8,7 @@ export default async function deleteMovie(req, res, next) {
         
         // Aplicar verificação se houver erro
         
-        const result = await remove(+id)
+        const result = await removeMovie(+id)
         //const result = await remove(movieValidated.id)
 
         return res.json({

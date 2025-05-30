@@ -1,4 +1,4 @@
-import {create} from "../../models/cinema.js"
+import {createCinema} from "../../models/cinema.js"
 
 export default async function postCinema(req, res, next) {
     try{
@@ -7,7 +7,7 @@ export default async function postCinema(req, res, next) {
         
         // Aplicar verificação se houver erro
         
-        const result = await create(cinema)
+        const result = await createCinema(cinema)
         //const result = await create(cinemaValidated)
 
         return res.json({

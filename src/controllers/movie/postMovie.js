@@ -1,4 +1,4 @@
-import {create} from "../../models/movie.js"
+import {createMovie } from "../../models/movie.js"
 
 export default async function postMovie(req, res, next) {
     try{
@@ -8,7 +8,7 @@ export default async function postMovie(req, res, next) {
         
         // Aplicar verificação se houver erro
         
-        const result = await create(movie)
+        const result = await createMovie(movie)
         //const result = await create(movieValidated)
 
         return res.json({

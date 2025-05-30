@@ -7,7 +7,7 @@ export default async function getCinema(req, res, next) {
         
         // Aplicar verificação se houver erro
         
-        const result = await get(+id)
+        const result = await readCinema(+id)
         //const result = await get(cinemaValidated.id)
 
         return res.json({

@@ -1,4 +1,4 @@
-import {remove} from "../../models/cinema.js"
+import {removeCinema} from "../../models/cinema.js"
 
 export default async function deleteCinema(req, res, next) {
     try{
@@ -8,7 +8,7 @@ export default async function deleteCinema(req, res, next) {
         
         // Aplicar verificação se houver erro
         
-        const result = await remove(+id)
+        const result = await removeCinema(+id)
         //const result = await remove(cinemaValidated.id)
 
         return res.json({
