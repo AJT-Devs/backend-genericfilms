@@ -7,7 +7,7 @@ export default async function getRoom(req, res, next) {
         
         // Aplicar verificação se houver erro
         
-        const result = await get(+id)
+        const result = await readRoom(+id)
         //const result = await get(roomValidated.id)
 
         return res.json({

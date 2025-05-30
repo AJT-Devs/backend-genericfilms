@@ -29,7 +29,7 @@ export async function updateAdmin(id, content){
     return result;
 }
 
-export async function deleteAdmin(id){
+export async function removeAdmin(id){
     const result = await prisma.admin.delete({
         where: {id}
     });

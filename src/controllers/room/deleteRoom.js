@@ -1,4 +1,4 @@
-import {remove} from "../../models/room.js"
+import {removeRoom} from "../../models/room.js"
 
 export default async function deleteRoom(req, res, next) {
     try{
@@ -8,7 +8,7 @@ export default async function deleteRoom(req, res, next) {
         
         // Aplicar verificação se houver erro
         
-        const result = await remove(+id)
+        const result = await removeRoom(+id)
         //const result = await remove(roomValidated.id)
 
         return res.json({

@@ -1,4 +1,4 @@
-import {update} from "../../models/room.js"
+import {updateRoom} from "../../models/room.js"
 
 export default async function putRoom(req, res, next) {
     try{
@@ -8,7 +8,7 @@ export default async function putRoom(req, res, next) {
             
             // Aplicar verificação se houver erro
             
-            const result = await update(+id, room)
+            const result = await updateRoom(+id, room)
             //const result = await update(roomValidated.id)
     
             return res.json({

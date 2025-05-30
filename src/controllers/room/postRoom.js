@@ -1,4 +1,4 @@
-import {create} from "../../models/room.js"
+import {createRoom} from "../../models/room.js"
 
 export default async function postRoom(req, res, next) {
     try{
@@ -7,7 +7,7 @@ export default async function postRoom(req, res, next) {
         
         // Aplicar verificação se houver erro
         
-        const result = await create(room)
+        const result = await createRoom(room)
         //const result = await create(roomValidated)
 
         return res.json({
