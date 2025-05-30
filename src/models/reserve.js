@@ -13,3 +13,25 @@ export async function readReserve(id){
     });
     return result;
 }
+
+export async function createReserve(content) {
+    const result = await prisma.reserve.create({
+        data: content
+    });
+    return result;
+}
+
+export async function updateReserve(id, content) {
+    const result = await prisma.reserve.update({
+        where: {id},
+        data: content
+    });
+    return result;
+}
+
+export async function removeReserve(id){
+    const result = await prisma.reserve.delete({
+        where:{id}
+    });
+    return result;
+}
