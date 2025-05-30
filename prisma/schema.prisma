@@ -20,9 +20,9 @@ model user{
     name      String   @db.VarChar(255)
     email     String   @unique(map: "email") @db.VarChar(255)
     password  String   @db.VarChar(50)
-    cpf       BigInt   @db.BigInt @unique
+    cpf       String   @unique(map: "cpf") @db.Char(11)
     BirthDate DateTime @db.Date
-    telNumber BigInt   @db.BigInt @unique
+    telNumber String   @db.VarChar(20)
     reserve reserve[]
 }
 
