@@ -39,15 +39,11 @@ const userSchema = z.object({
         .refine(date => !isNaN(Date.parse(date)), {
             message: 'Data de nascimento deve ser uma data válida'
         })
-        .optional()
-        .nunnalble(),
+        .optional(),
     telNumber: z.string({
         invalid_type_error: 'Número de telefone deve ser uma string'
     })
     .optional()
-    .nullable()
-    .min(11, 'Número de telefone deve ter pelo menos 11 caracteres')
-    .max(20, 'Número de telefone deve ter no máximo 20 caracteres')
 });
 
 export const userValidator = (user, partial = null) => {

@@ -21,6 +21,10 @@ const __dirname = dirname(__filename);
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, './uploads')));
+// url: do caminho do arquivo
+// exemplo: http://localhost:3000/uploads/user-1748817777115.jpg
+// exemplo: http://localhost:3000/uploads/angelo-1748818165294.jpg
+// para enviar upload da img: http://localhost:3000/upload/image, file, name: 'userName'
 
 
 //Routes

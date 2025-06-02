@@ -21,6 +21,23 @@ const storage = multer.diskStorage({
     }
 });
 
-const upload = multer({ storage });
+const fileFilter = (req, file, cb) => {
+    // Verifica se o arquivo é uma imagem
+    const allowedTypes = /jpeg|jpg|png|gif|pdf/;
+    const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = allowedTypes.test(file.mimetype);
+
+    if (mimetype && extname) {
+        return cb(null, true);
+    } else {
+        cb(new Error('Arquivo não suportado. Apenas arquivos de imagem (JPEG, JPG, PNG, GIF) e PDF são permitidos.'), false);
+    }
+}
+
+const upload = multer({ 
+    storage, 
+    fileFilter, 
+    limits: { fileSize: 5 * 1024 * 1024 } // Limite de 5MB
+}); 
 
 export default upload;
