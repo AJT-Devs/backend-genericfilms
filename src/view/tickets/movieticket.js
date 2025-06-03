@@ -9,7 +9,7 @@ export default function movieTicket(content){
 </head>
 <body>
 <ul>
-<img url="http://localhost:3000/uploads/angelo-1748818165294.jpg" alt="se der errado">
+<img src="../uploads/user-1748817777115.jpg" alt="se der errado">
 <li>${content.isPCD}</li>
 <li>${content.seat}</li>
 <li>${content.typeReserve}</li>
@@ -38,7 +38,7 @@ export default function movieTicket(content){
     <title>Ticket</title>
 </head>
 <body>
-<img url="http://localhost:3000/uploads/angelo-1748818165294.jpg" alt="se der errado">
+<img src="http://localhost:3000/uploads/angelo-1748818165294.jpg" width="100px" heigth="100px" alt="se der errado">
 <ul>
 <li>${content.isPCD}</li>
 <li>${content.seat}</li>

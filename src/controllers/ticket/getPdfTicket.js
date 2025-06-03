@@ -70,7 +70,8 @@ export default async function getPdfTicket(req, res) {
         await page.setContent(movieTicket(result));
         
         const pdfBuffer = await page.pdf({
-          format: "a4"
+          heigth: "1920px",
+          width: "1080px"
         });
       
         res.setHeader("Content-Disposition", 'attachment; filename="ingresso.pdf"');;
