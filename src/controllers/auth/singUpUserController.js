@@ -1,9 +1,10 @@
 import { userValidator, createUser } from '../../models/user.js';
+import bcrypt from 'bcrypt';
 
-export default async function signUpController(req, res, next) {
+export default async function signUpUserController(req, res, next) {
     try {
         const user = req.body;
-        const validation = userValidator(user);
+        const { success, error, data } = userValidator(user, { partial: true });
 
         if (!validation.success) {
             return res.status(401).json({

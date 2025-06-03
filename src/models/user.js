@@ -50,17 +50,12 @@ export const userValidator = (user, partial = null) => {
     if (partial) {
         return userSchema.partial().safeParse(user);
     }
-    return userSchema.safeParse(user); 
+    return userSchema.safeParse(user);
 } 
 
 export async function createUser(user) {
-    const validation = userValidator(user);
-    if (!validation.success) {
-        throw new Error(validation.error.errors.map(e => e.message).join(', '));
-    }
-
     const result = await prisma.user.create({
-        data: validation.data
+        data: user
     });
     return result;
 }
