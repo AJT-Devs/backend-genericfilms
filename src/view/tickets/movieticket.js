@@ -1,4 +1,11 @@
 export default function movieTicket(content){
+let startDate = content.startDate;
+startDate = startDate
+
+
+let endHour = realHour(content.endHour);
+
+
     if(content.typeReserve === "Meia" ){
         return `<!DOCTYPE html>
 <html lang="pt_BR">
@@ -9,7 +16,7 @@ export default function movieTicket(content){
 </head>
 <body>
 <ul>
-<img src="../uploads/user-1748817777115.jpg" alt="se der errado">
+<img src="${content.movieBanner}" width="500px" height="500px" alt="se der errado">
 <li>${content.isPCD}</li>
 <li>${content.seat}</li>
 <li>${content.typeReserve}</li>
@@ -38,7 +45,7 @@ export default function movieTicket(content){
     <title>Ticket</title>
 </head>
 <body>
-<img src="http://localhost:3000/uploads/angelo-1748818165294.jpg" width="100px" heigth="100px" alt="se der errado">
+<img src="${content.movieBanner}" width="100px" heigth="100px" alt="se der errado">
 <ul>
 <li>${content.isPCD}</li>
 <li>${content.seat}</li>
@@ -57,4 +64,17 @@ export default function movieTicket(content){
 </ul>
 </body>
 </html>`
+}
+
+function realHour(myHour){
+// let endHour = myHour;
+// endHour = endHour.split(" ");
+// endHour = endHour[4];
+// let endMinute = endHour;
+// endHour = parseInt(endHour.charAt(0)*10) + parseInt(endHour.charAt(1)+3);
+// endHour = endHour.toString();
+// endMinute = endMinute.split(":");
+// endMinute =endMinute[1];
+// let endReal = endHour + ":" + endMinute;
+return myHour; 
 }
