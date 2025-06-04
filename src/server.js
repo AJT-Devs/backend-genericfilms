@@ -11,6 +11,7 @@ import session from './routers/session.js';
 import admin from './routers/admin.js';
 import reserve from './routers/reserve.js';
 import ticket from './routers/ticket.js';
+import auth from './routers/auth.js';
 
 const port = 3000;
 
@@ -36,6 +37,7 @@ app.use('/admin', admin);
 app.use('/reserve', reserve);
 app.use('/upload', upload);
 app.use('/ticket', ticket);
+app.use('/auth', auth);
 
 // funções
 app.get('/', (req, res) => {

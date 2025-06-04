@@ -19,9 +19,9 @@ model user{
     id        Int      @id @default(autoincrement())
     name      String   @db.VarChar(255)
     email     String   @unique(map: "email") @db.VarChar(255)
-    password  String   @db.VarChar(50)
+    password  String   @db.VarChar(999)
     cpf       String   @unique(map: "cpf") @db.Char(11)
-    BirthDate DateTime @db.Date
+    birthdate DateTime @db.Date
     telNumber String   @db.VarChar(20)
     reserve reserve[]
 }

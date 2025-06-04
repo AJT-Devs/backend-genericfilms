@@ -33,29 +33,44 @@ const userSchema = z.object({
         invalid_type_error: 'CPF deve ser uma string'
     })
         .length(11, 'CPF deve ter exatamente 11 caracteres'),
-    birthdate: z.string().date({
+    birthdate: z.string({
         invalid_type_error: 'Data de nascimento deve ser uma string'
     })
         .refine(date => !isNaN(Date.parse(date)), {
             message: 'Data de nascimento deve ser uma data válida'
-        })
-        .optional(),
+        }),
     telNumber: z.string({
         invalid_type_error: 'Número de telefone deve ser uma string'
     })
-    .optional()
 });
 
 export const userValidator = (user, partial = null) => {
     if (partial) {
-        return userSchema.partial().safeParse(user);
+        return userSchema.partial(partial).safeParse(user);
     }
     return userSchema.safeParse(user);
-} 
+}
 
 export async function createUser(user) {
     const result = await prisma.user.create({
-        data: user
+        data: user,
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            cpf: true,
+            birthdate: true,
+            telNumber: true
+        }
+    });
+    return result;
+}
+
+export async function getEmailUser(email) {
+    const result = await prisma.user.findUnique({
+        where: {
+            email
+        }
     });
     return result;
 }
