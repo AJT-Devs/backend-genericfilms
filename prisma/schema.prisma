@@ -11,7 +11,7 @@ model admin{
     id       Int     @id @default(autoincrement())
     name     String  @db.VarChar(255)
     email    String  @unique(map: "email") @db.VarChar(255)
-    password String  @db.VarChar(50)
+    password String  @db.VarChar(999)
     cargo    String  @db.VarChar(50)
 }
 
@@ -37,7 +37,7 @@ model movie{
     classification String   @db.Char(2)
     cast           String   @db.VarChar(999)
     gender         String   @db.VarChar(50)
-    banner         String   @db.VarChar(9999)
+    banner         String   @db.VarChar(999)
     session session[]
 }
 

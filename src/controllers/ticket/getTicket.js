@@ -1,16 +1,21 @@
 import { readReserve } from "../../models/reserve.js";
-import { readUser } from "../../models/user.js";
 import { readSession } from "../../models/session.js";
 import { readMovie } from "../../models/movie.js";
 import { readRoom } from "../../models/room.js";
 import { readCinema } from "../../models/cinema.js";
+import configDate from "../../middlewares/dateHour/configDate.js";
+import configHour from "../../middlewares/dateHour/configHour.js";
 
 export default async function getTicket(req, res){
     const {id} = req.params;
 
-    const reserve = await readReserve(+id);
-    
-    const user = await readUser(reserve.idUser);
+    const result = await configTicket(+id);
+
+    return res.json(result).status(200);       
+}
+
+async function configTicket(id){
+    const reserve = await readReserve(id);
     
     const session = await readSession(reserve.idSession);
     
@@ -20,15 +25,18 @@ export default async function getTicket(req, res){
     
     const cinema = await readCinema(room.idCinema);
 
-    function itsHalf(){
-            if(reserve.isHalf){
-        return {
-            isPCD : reserve.isPCD,
+    const isPCD = configPCD();
+    const startDate = configDate(session.startDate);
+    const startHour = configHour(session.startDate);
+    const endHour = configHour(session.endHour);
+    const typeReserve = configTypeReserve();
+    let ticket = {
+            isPCD : isPCD,
             seat : reserve.seat,
-            typeReserve: "Meia",
-            halfDoc : reserve.halfDoc,
-            startDate : session.startDate,
-            endHour : session.endHour.getUTCHours()+ ":" +session.endHour.getUTCMinutes(),
+            typeReserve: typeReserve,
+            startDate : startDate,
+            startHour : startHour,
+            endHour : endHour,
             format : session.format,
             language : session.language,
             roomName : room.name,
@@ -38,31 +46,23 @@ export default async function getTicket(req, res){
             cinemaUF : cinema.uf,
             movieTitle : movie.title,
             movieBanner : movie.banner,
-            movieClassification : movie.classification
-            }
-        }
-
-        return {
-            isPCD : reserve.isPCD,
-            seat : reserve.seat,
-            typeReserve: "Inteira",
-            startDate : session.startDate,
-            endHour : session.endHour.getUTCHours()+ ":" +session.endHour.getUTCMinutes(),
-            format : session.format,
-            language : session.language,
-            roomName : room.name,
-            cinemaName : cinema.name,
-            cinemaAddress : cinema.address,
-            cinemaCity : cinema.city,
-            cinemaUF : cinema.uf,
-            movieTitle : movie.title,
-            movieBanner : movie.banner,
-            movieClassification : movie.classification
-            }
     }
 
-    const result = itsHalf();
+    function configPCD(){
+        if(reserve.isPCD){
+            return "Assento PCD";
+        }
+        return "Assento Comum";
+    }
 
-    return res.json(result).status(200);       
+    function configTypeReserve(){
+        if(reserve.isHalf){
+            return "Meia"
+        }
+        return "Inteira"
+    }
+    
+    
+return ticket;
 }
 
