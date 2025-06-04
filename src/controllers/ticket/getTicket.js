@@ -28,7 +28,7 @@ export default async function getTicket(req, res){
             typeReserve: "Meia",
             halfDoc : reserve.halfDoc,
             startDate : session.startDate,
-            endHour : session.endHour,
+            endHour : session.endHour.getUTCHours()+ ":" +session.endHour.getUTCMinutes(),
             format : session.format,
             language : session.language,
             roomName : room.name,
@@ -37,6 +37,7 @@ export default async function getTicket(req, res){
             cinemaCity : cinema.city,
             cinemaUF : cinema.uf,
             movieTitle : movie.title,
+            movieBanner : movie.banner,
             movieClassification : movie.classification
             }
         }
@@ -46,7 +47,7 @@ export default async function getTicket(req, res){
             seat : reserve.seat,
             typeReserve: "Inteira",
             startDate : session.startDate,
-            endHour : session.endHour,
+            endHour : session.endHour.getUTCHours()+ ":" +session.endHour.getUTCMinutes(),
             format : session.format,
             language : session.language,
             roomName : room.name,
@@ -55,12 +56,13 @@ export default async function getTicket(req, res){
             cinemaCity : cinema.city,
             cinemaUF : cinema.uf,
             movieTitle : movie.title,
+            movieBanner : movie.banner,
             movieClassification : movie.classification
             }
     }
 
     const result = itsHalf();
 
-    return res.json(result);       
+    return res.json(result).status(200);       
 }
 
