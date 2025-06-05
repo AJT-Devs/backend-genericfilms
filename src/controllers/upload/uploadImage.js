@@ -1,21 +1,21 @@
-import path from 'path';
-
 export async function uploadImage(req, res) {
-
-    if (!req.file) {
-        if (err instanceof multer.MulterError) {
-            // A Multer error occurred when uploading.
-        } else if (err) {
-            // An unknown error occurred when uploading.
-            return res.status(400).json({ error: 'No file uploaded' });
+    try {
+        // Verifica se os arquivos foram enviados
+        if (!req.files || req.files.length === 0) {
+            return res.status(400).json({ error: 'Nenhum arquivo foi enviado.' });
         }
-    } else {
-        const filePath = `/uploads/${req.file.filename}`;
+
+        // Caminhos dos arquivos salvos
+        const filePaths = req.files.map(file => `/uploads/${file.filename}`);
         res.status(200).json({
-            message: 'File uploaded successfully',
-            filePath: filePath
+            message: 'Arquivos enviados com sucesso.',
+            filePaths: filePaths
         });
-    };
-
-
+    } catch (error) {
+        // Captura erros inesperados
+        res.status(500).json({
+            error: 'Ocorreu um erro ao processar o upload.',
+            details: error.message
+        });
+    }
 }

@@ -9,15 +9,25 @@ const __dirname = dirname(__filename);
 const storage = multer.diskStorage({
     // Define o destino onde os arquivos serão salvos
     destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, '../uploads')); 
+        cb(null, path.join(__dirname, '../uploads'));
     },
     // Define o nome do arquivo salvo
-    filename: (req, file, cb) => { 
-        const nomeBruto = req.body.name || 'user'; 
+    filename: (req, file, cb) => {
+        const nomeBruto = req.body.name || 'user';
         const username = nomeBruto.replace(/\s+/g, '-').toLowerCase(); // Remove espaços e converte para minúsculas
-        const time = Date.now();
+        const nameBackground = req.body.nameBackground || 'background';
         const ext = path.extname(file.originalname); // Obtém a extensão do arquivo
-        cb(null, `${username}-${time}${ext}`); // Nome final do arquivo
+
+        // Lógica para dar nomes diferentes
+        if (file.fieldname === 'profile') {
+            cb(null, `${username}-profile${ext}`); // Nome para o arquivo de perfil
+        } else if (file.fieldname === 'background') {
+            cb(null, `${username}-background${ext}`); // Nome para o arquivo de fundo
+        } else {
+            cb(null, `${username}-${Date.now()}${ext}`); // Nome genérico para outros arquivos
+        }
+            
+        cb(null, `${username} - ${ time }${ ext }`); // Nome final do arquivo
     }
 });
 
@@ -37,7 +47,7 @@ const fileFilter = (req, file, cb) => {
 const uploadMiddleware = multer({ 
     storage, 
     fileFilter, 
-    limits: { fileSize: 1 * 1024 * 1024 } // Limite de 5MB
+    limits: { fileSize: 1 * 1024 * 1024 } // Limite de 1MB
 }); 
 
 export default uploadMiddleware;
