@@ -15,4 +15,4 @@ select * from user;
 insert into user values(default, "angelo alves yoshimura generic", "angeloayg@genericfilms.com", "password", "12345678900", now(), 40028922);
 
 select * from reserve;
-insert into reserve values(default, now(), "pix", 0, 50, 0, null, 1, 1);
+insert into reserve values(default, now(), "pix", 0, "A50", 0, null, 1, 1);

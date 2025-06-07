@@ -80,7 +80,7 @@ model reserve {
     buyDate   DateTime @db.Timestamp()
     method    String   @db.VarChar(50)
     isPCD     Boolean  @db.Bit(1)
-    seat      Int
+    seat      String   @db.VarChar(3)
     isHalf    Boolean  @db.Bit(1)
     halfDoc   String?  @db.VarChar(50)
     user      user     @relation(fields: [idUser], references: [id])
