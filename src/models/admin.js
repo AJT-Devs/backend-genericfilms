@@ -59,6 +59,13 @@ export async function readAdmin(id){
     return result;
 }
 
+export async function authAdmin(email, password){
+    const result = await prisma.admin.findUnique({
+        where: {email, password}
+    });
+    return result;
+}
+
 export async function createAdmin(content){
     const result = await prisma.admin.create({
         data: content,
