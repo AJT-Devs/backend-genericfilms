@@ -1,10 +1,13 @@
 import { authAdmin } from "../../models/admin.js";
 import jwt from 'jsonwebtoken';
+import bycrypt from 'bcrypt';
 
 export default async function loginAdmin(req, res) {
     try{
         const {email, password} = req.body;
+        password = bycrypt.compareSync(password,);
         const result = await authAdmin(email, password);
+        const SECRET = process.env.SECRET;
         
         if(!result){
             return res.status(400).json({
@@ -16,11 +19,11 @@ export default async function loginAdmin(req, res) {
 
         return res.status(200).json({
             message: "Administrador logado com sucesso!",
-            token,
-            header
+            token
         });
     } catch(error){
         return res.status(400).json({
+
             message: "Erro ao autenticar administrador!",
         });
     }

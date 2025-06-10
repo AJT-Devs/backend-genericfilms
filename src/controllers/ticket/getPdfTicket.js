@@ -4,6 +4,8 @@ import { readSession } from "../../models/session.js";
 import { readMovie } from "../../models/movie.js";
 import { readRoom } from "../../models/room.js";
 import { readCinema } from "../../models/cinema.js";
+import configDate from "../../middlewares/dateHour/configDate.js";
+import configHour from "../../middlewares/dateHour/configHour.js";
 import movieTicket from "../../view/tickets/movieticket.js";
 
 export default async function getPdfTicket(req, res) {

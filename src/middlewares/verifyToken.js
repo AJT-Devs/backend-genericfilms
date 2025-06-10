@@ -10,7 +10,8 @@ export default async function verifyToken(req, res, next){
     try{
         const SECRET = process.env.SECRET;
         const result = jwt.verify(token, SECRET);
-        next();
+        res.status(200).json({result})
+        // next();
     }catch(error){
         res.status(401).json({message:"Acesso negado"})
     }

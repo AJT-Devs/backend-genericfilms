@@ -62,7 +62,12 @@ export async function readAdmin(id){
 export async function authAdmin(email, password){
     const result = await prisma.admin.findUnique({
         where: {email, password},
-        select: {email: true, name: true}
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            cargo: true
+        }
     });
     return result;
 }
