@@ -61,7 +61,8 @@ export async function readAdmin(id){
 
 export async function authAdmin(email, password){
     const result = await prisma.admin.findUnique({
-        where: {email, password}
+        where: {email, password},
+        select: {email: true, name: true}
     });
     return result;
 }

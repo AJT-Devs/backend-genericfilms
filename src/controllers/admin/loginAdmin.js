@@ -1,4 +1,5 @@
 import { authAdmin } from "../../models/admin.js";
+import jwt from 'jsonwebtoken';
 
 export default async function loginAdmin(req, res) {
     try{
@@ -11,8 +12,13 @@ export default async function loginAdmin(req, res) {
             });
         }
 
+        const token = jwt.sign({result},SECRET);
+
         return res.status(200).json({
-            message: "Administrador logado com sucesso!",});
+            message: "Administrador logado com sucesso!",
+            token,
+            header
+        });
     } catch(error){
         return res.status(400).json({
             message: "Erro ao autenticar administrador!",
