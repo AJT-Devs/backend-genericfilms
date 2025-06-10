@@ -67,12 +67,12 @@ export async function createUser(user) {
 }
 
 export async function getEmailUser(email) {
-    const result = await prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
         where: {
             email
         }
     });
-    return result;
+    return user;
 }
 
 export async function readUser(id) {
