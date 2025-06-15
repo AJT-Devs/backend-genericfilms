@@ -6,8 +6,12 @@ export const createToken = async (userId, token) => {
 
     const result = await prisma.token.create({
         data: {
-            userId: userId,
-            token: token
+            token: token,
+            user: {
+                connect: {
+                    id: userId
+                }
+            }
         }
     })
     return result;

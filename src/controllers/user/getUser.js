@@ -1,5 +1,33 @@
-async function getUser(req, res) {
-    return res.send('getuser')
+import { getEmailUser } from '../../models/user.js';
+
+const getUser = async (req, res, next) => {
+    try {
+        const { email } = req.body;
+        
+        const user = await getEmailUser(email);
+
+        if (!user) {
+            return res.status(404).json({
+                message: "Usuário não encontrado",
+                error: "Email não registrado"
+            });
+        }
+
+        return res.status(200).json({
+            message: "Usuário encontrado",
+            user: {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                cpf: user.cpf,
+                birthdate: user.birthdate,
+                telNumber: user.telNumber
+            }
+        });
+
+    } catch (error) {
+        next(error);
+    }
 }
 
 export default getUser;

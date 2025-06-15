@@ -24,6 +24,7 @@ model user {
     birthdate DateTime  @db.Date
     telNumber String    @db.VarChar(20)
     reserve   reserve[]
+    token token[]
 }
 
 model movie {
@@ -87,4 +88,11 @@ model reserve {
     idUser    Int
     session   session  @relation(fields: [idSession], references: [id])
     idSession Int
+}
+
+model token {
+    id        Int      @id @default(autoincrement())
+    token     String   @unique(map: "token") @db.VarChar(700)
+    idUser    Int
+    user      user     @relation(fields: [idUser], references: [id], onDelete: Cascade)  
 }

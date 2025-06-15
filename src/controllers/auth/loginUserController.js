@@ -1,5 +1,5 @@
-import { userValidator, getEmailUser } from "../../models/user";
-import { createToken } from '../../models/token';
+import { loginValidator, getEmailUser } from "../../models/user.js";
+import {createToken}  from '../../models/token.js';
 import bycrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
@@ -7,7 +7,8 @@ export default async function loginUserController(req, res, next) {
     try {
 
         const { email, password } = req.body;
-        const { success, error, data } = userValidator(user, { id: true, name: true, cpf: true, birthdate: true, telNumber: true });
+        const user = await getEmailUser(email);
+        const { success, error, data } = loginValidator(user, { email: true, password: true });
 
         if (!success) {
             return res.status(400).json({
@@ -16,16 +17,14 @@ export default async function loginUserController(req, res, next) {
             });
         }
 
-        const user = await getEmailUser(email);
-
-        if (!result) {
+        if (!data.email) {
             return res.status(404).json({
                 message: "email de usuário não encontrado",
                 error: error
             })
         }
 
-        const validPassword = await bycrypt.compare(password, user.password);
+        const validPassword = await bycrypt.compare(password, data.password);
 
         if (!validPassword) {
             return res.status(401).json({
@@ -43,25 +42,24 @@ export default async function loginUserController(req, res, next) {
             telNumber: user.telNumber
         }
 
-        const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign(payload, process.env.SECRET, { expiresIn: '1h' });
         await createToken(user.id, token); // cria a sessão do usuário
 
+        return res.status(200).json({
+            message: "usuário logado com sucesso",
+            token: token,
+            user: {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                cpf: user.cpf,
+                birthdate: user.birthdate,
+                telNumber: user.telNumber
+            }
+        });
         
-
-
 
     } catch (error) {
         next(error);
     }
 }
-
-/*model user {
-    id        Int       @id @default(autoincrement())
-    name      String    @db.VarChar(255)
-    email     String    @unique(map: "email") @db.VarChar(255)
-    password  String    @db.VarChar(999)
-    cpf       String    @unique(map: "cpf") @db.Char(11)
-    birthdate DateTime  @db.Date
-    telNumber String    @db.VarChar(20)
-    reserve   reserve[]
-}*/

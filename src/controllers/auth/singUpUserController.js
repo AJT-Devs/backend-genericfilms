@@ -41,13 +41,22 @@ export default async function signUpUserController(req, res, next) {
             }
         });
     } catch (error) {
-        if (error?.code === "P2002" && error?.meta?.target === "user_email_key") {
-            return res.status(400).json({
-                message: "Erro ao criar usuário!",
-                errors: {
-                    email: ["Email já cadastrado!"]
-                }
-            })
+        if (error?.code === "P2002" && error?.meta?.target === "email" || error?.meta?.target === "cpf") {
+            if( error?.meta?.target === "email") {
+                return res.status(400).json({
+                    message: "Erro ao criar usuário!",
+                    errors: {
+                        email: ["Email já cadastrado!"]
+                    }
+                });
+            } else if (error?.meta?.target === "cpf") {
+                return res.status(400).json({
+                    message: "Erro ao criar usuário!",
+                    errors: {
+                        cpf: ["CPF já cadastrado!"]
+                    }
+                });
+            }
         }
 
         next(error);
