@@ -1,6 +1,8 @@
 import express from 'express';
 import signUpController from '../controllers/auth/singUpUserController.js';
 import loginUserController from '../controllers/auth/loginUserController.js';
+import logoutUserController from '../controllers/auth/logoutUserController.js'; 
+import {authMiddleware} from '../Middlewares/verifyUserToken.js';
 
 const auth = express.Router();
 auth.use(express.json());
@@ -16,5 +18,6 @@ auth.get('/', (req, res) => {
 })
 auth.post('/signup',express.json(), signUpController); // Local de cadastro
 auth.post('/login', express.json(), loginUserController); // Local de login
+auth.post('/logout', authMiddleware, express.json(), logoutUserController); // Local de logout
 
 export default auth;

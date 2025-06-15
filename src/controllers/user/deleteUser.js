@@ -24,4 +24,4 @@ const deleteUserController = async (req, res, next) => {
     }
 }
 
-export default deleteUser;
+export default deleteUserController;

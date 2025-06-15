@@ -16,3 +16,10 @@ export const createToken = async (userId, token) => {
     })
     return result;
 }
+
+export const deleteToken = async (idUser, token) => {
+    const result = await prisma.token.deleteMany({
+        where: { idUser, token }
+    })
+    return result;
+}
