@@ -26,7 +26,7 @@ const userSchema = z.object({
         required_error: 'CPF é necessário',
         invalid_type_error: 'CPF deve ser uma string'
     })
-        .length(11, 'CPF deve ter exatamente 11 caracteres'),
+        .regex(/^(\d{3}\.\d{3}\.\d{3}-\d{2}|\d{11})$/, 'CPF inválido'),
     birthdate: z.string({
         invalid_type_error: 'Data de nascimento deve ser uma string'
     })
