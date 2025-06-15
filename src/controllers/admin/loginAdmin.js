@@ -33,6 +33,7 @@ export default async function loginAdmin(req, res) {
         }
 
         await createSessionAdmin(result);
+        // res.cookie('token', token, { httpOnly: true, sameSite: 'None', secure: false, maxAge: 30 * 60 * 1000 })
 
         return res.status(200).json({
             message: "Administrador logado com sucesso!",
