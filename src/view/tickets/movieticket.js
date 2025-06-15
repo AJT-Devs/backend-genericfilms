@@ -65,16 +65,3 @@ let endHour = realHour(content.endHour);
 </body>
 </html>`
 }
-
-function realHour(myHour){
-// let endHour = myHour;
-// endHour = endHour.split(" ");
-// endHour = endHour[4];
-// let endMinute = endHour;
-// endHour = parseInt(endHour.charAt(0)*10) + parseInt(endHour.charAt(1)+3);
-// endHour = endHour.toString();
-// endMinute = endMinute.split(":");
-// endMinute =endMinute[1];
-// let endReal = endHour + ":" + endMinute;
-return myHour; 
-}

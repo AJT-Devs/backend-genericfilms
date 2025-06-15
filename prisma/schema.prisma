@@ -13,6 +13,8 @@ model admin {
     email    String @unique(map: "email") @db.VarChar(255)
     password String @db.VarChar(999)
     cargo    String @db.VarChar(50)
+
+    sessionAdmin sessionAdmin[]
 }
 
 model user {
@@ -87,4 +89,14 @@ model reserve {
     idUser    Int
     session   session  @relation(fields: [idSession], references: [id])
     idSession Int
+}
+
+model sessionAdmin{
+    id              Int         @id @default(autoincrement())
+    startDate       DateTime?    @db.Timestamp(0) 
+    updateDate      DateTime?   @db.Timestamp(0) 
+    userAgent       String      @db.VarChar(255)
+    token    String      @unique @db.VarChar(560)
+    admin           admin       @relation(fields: [idAdmin], references: [id])
+    idAdmin         Int
 }

@@ -12,13 +12,15 @@ import admin from './routers/admin.js';
 import reserve from './routers/reserve.js';
 import ticket from './routers/ticket.js';
 import auth from './routers/auth.js';
+import {errorHandler} from './middlewares/errorsHandler.js';
+import cookieParser from 'cookie-parser';
 
 const port = 3000;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-//middlewares
+
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, './uploads')));
@@ -27,6 +29,8 @@ app.use('/uploads', express.static(path.join(__dirname, './uploads')));
 // exemplo: http://localhost:3000/uploads/angelo-1748818165294.jpg
 // para enviar upload da img: http://localhost:3000/upload/image, file, name: 'userName'
 
+//middlewares
+app.use(cookieParser());
 
 //Routes
 app.use('/movie', movie);
@@ -38,6 +42,8 @@ app.use('/reserve', reserve);
 app.use('/upload', upload);
 app.use('/ticket', ticket);
 app.use('/auth', auth);
+
+app.use(errorHandler);
 
 // funções
 app.get('/', (req, res) => {
