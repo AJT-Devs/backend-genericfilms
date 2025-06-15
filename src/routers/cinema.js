@@ -7,10 +7,11 @@ import deleteCinema from '../controllers/cinema/deleteCinema.js';
 
 const cinema = express.Router();
 
+cinema.use(express.json());
 
-cinema.get('/:id', getCinema);
 cinema.get('/list', getListCinema);
-cinema.post('/', postCinema);
+cinema.get('/:id', getCinema);
+cinema.post('/create', postCinema);
 cinema.put('/:id', putCinema);   
 cinema.delete('/:id', deleteCinema);
 
