@@ -59,14 +59,15 @@ export async function readAdmin(id){
     return result;
 }
 
-export async function authAdmin(email, password){
+export async function readByEmailAdmin(email){
     const result = await prisma.admin.findUnique({
-        where: {email, password},
+        where: {email},
         select: {
             id: true,
             name: true,
             email: true,
-            cargo: true
+            cargo: true,
+            password: true
         }
     });
     return result;
@@ -96,6 +97,45 @@ export async function updateAdmin(id, content){
 export async function removeAdmin(id){
     const result = await prisma.admin.delete({
         where: {id}
+    });
+    return result;
+}
+
+// Session Admin
+
+export async function readByTokenSessionAdmin(token){
+    const result = await prisma.sessionAdmin.findUnique({
+        where: {token}
+    });
+    return result;
+}
+
+export async function createSessionAdmin(content){
+    const result = await prisma.sessionAdmin.create({
+        data: {
+            startDate: new Date(),
+            token: content.token,
+            userAgent: content.userAgent,
+            idAdmin: content.idAdmin
+        },
+    });
+    return result;
+}
+
+export async function updateSessionAdmin(id, refreshToken, content){
+    const result = await prisma.sessionAdmin.update({
+        where: {id, refreshToken},
+        data: {
+            refreshToken: content.refreshToken,
+            updateDate: new Date(),
+        }
+    });
+    return result;
+}
+
+export async function deleteSessionAdmin(token){
+    const result = await prisma.sessionAdmin.delete({
+        where: {token}
     });
     return result;
 }

@@ -14,5 +14,8 @@ insert into session values(default, now(), "23:00", 10.50, "2D", "portugues do b
 select * from user;
 insert into user values(default, "angelo alves yoshimura generic", "angeloayg@genericfilms.com", "password", "12345678900", now(), 40028922);
 
+select * from admin;
+insert into admin values(default, "angelo alves yoshimura generic", "angeloayg@genericfilms.com", "password", "gerente");
+
 select * from reserve;
 insert into reserve values(default, now(), "pix", 0, "A50", 0, null, 1, 1);
