@@ -24,14 +24,12 @@ async function configTicket(id){
     const room = await readRoom(session.idRoom);
     
     const cinema = await readCinema(room.idCinema);
-
-    const isPCD = configPCD();
     const startDate = configDate(session.startDate);
     const startHour = configHour(session.startDate);
     const endHour = configHour(session.endHour);
     const typeReserve = configTypeReserve();
     let ticket = {
-            isPCD : isPCD,
+            isPCD : reserve.isPCD,
             seat : reserve.seat,
             typeReserve: typeReserve,
             startDate : startDate,
@@ -46,13 +44,6 @@ async function configTicket(id){
             cinemaUF : cinema.uf,
             movieTitle : movie.title,
             movieBanner : movie.banner,
-    }
-
-    function configPCD(){
-        if(reserve.isPCD){
-            return "Assento PCD";
-        }
-        return "Assento Comum";
     }
 
     function configTypeReserve(){

@@ -20,6 +20,18 @@ export default async function signUpUserController(req, res, next) {
             data.birthdate = new Date(`${year}-${month}-${day}`);
         }
 
+        const cpfNormalizado = data.cpf.replace(/\D/g, '');
+
+        if (cpfNormalizado.length !== 11) {
+            return res.status(400).json({
+                error: 'CPF inválido',
+                message: 'O CPF deve conter 11 dígitos numéricos'
+            });
+        }
+        
+            data.cpf = cpfNormalizado;
+
+
         const newUser = await createUser(data);
 
         if (!newUser) {
@@ -42,7 +54,7 @@ export default async function signUpUserController(req, res, next) {
         });
     } catch (error) {
         if (error?.code === "P2002" && error?.meta?.target === "email" || error?.meta?.target === "cpf") {
-            if( error?.meta?.target === "email") {
+            if (error?.meta?.target === "email") {
                 return res.status(400).json({
                     message: "Erro ao criar usuário!",
                     errors: {

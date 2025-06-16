@@ -1,15 +1,15 @@
-import { getEmailUser } from '../../models/user.js';
+import { readUser } from '../../models/user.js';
 
 const getUser = async (req, res, next) => {
     try {
-        const { email } = req.body;
+        const { id } = req.params;
         
-        const user = await getEmailUser(email);
+        const user = await readUser(+id);
 
         if (!user) {
             return res.status(404).json({
                 message: "Usuário não encontrado",
-                error: "Email não registrado"
+                error: "Id não registrado"
             });
         }
 
