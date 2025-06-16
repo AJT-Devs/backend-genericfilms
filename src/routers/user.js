@@ -8,8 +8,8 @@ import {authMiddleware} from '../Middlewares/verifyUserToken.js';
 const user = express.Router();
 user.use(express.json());
 
-user.get('/', authMiddleware, getUser, express.json());
 user.get('/all', getAllUser);
+user.get('/:id', getUser, express.json());
 user.put('/', authMiddleware, putUser, express.json()); 
 user.delete('/', authMiddleware, deleteUser, express.json());
 

@@ -13,6 +13,7 @@ import ticket from './routers/ticket.js';
 import auth from './routers/auth.js';
 import {errorHandler} from './middlewares/errorsHandler.js';
 import cookieParser from 'cookie-parser';
+import cors from "cors";
 
 const port = 3000;
 
@@ -30,6 +31,7 @@ app.use('/uploads', express.static(path.join(__dirname, './uploads')));
 
 //middlewares
 app.use(cookieParser());
+app.use(cors());
 
 //Routes
 app.use('/movie', movie);

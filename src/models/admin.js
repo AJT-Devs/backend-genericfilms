@@ -33,7 +33,7 @@ const adminSchema = z.object({
         invalid_type_error: 'Cargo deve ser uma string'
     })
         .min(3, 'Cargo deve ter pelo menos 3 caracteres')
-        .max(50, 'Cargo deve ter no máximo 50 caracteres'),
+        .max(50, 'Cargo deve ter no máximo 50 caracteres')
 })
 
 export const adminValidator = (user, partial = null) =>{
@@ -54,7 +54,14 @@ export async function listAdmin(){
 
 export async function readAdmin(id){
     const result = await prisma.admin.findUnique({
-        where: {id}
+        where: {id},
+        select: {
+            id: true,
+            name: true,
+            email: true,
+            cargo: true,
+            password: true
+        }
     });
     return result;
 }
@@ -122,11 +129,11 @@ export async function createSessionAdmin(content){
     return result;
 }
 
-export async function updateSessionAdmin(id, refreshToken, content){
+export async function updateSessionAdmin(token, refreshToken){
     const result = await prisma.sessionAdmin.update({
-        where: {id, refreshToken},
+        where: {token},
         data: {
-            refreshToken: content.refreshToken,
+            token: refreshToken,
             updateDate: new Date(),
         }
     });

@@ -94,10 +94,10 @@ model reserve {
 
 model sessionAdmin{
     id              Int         @id @default(autoincrement())
-    startDate       DateTime?    @db.Timestamp(0) 
+    startDate       DateTime?   @db.Timestamp(0) 
     updateDate      DateTime?   @db.Timestamp(0) 
     userAgent       String      @db.VarChar(255)
-    token    String      @unique @db.VarChar(560)
+    token           String      @unique @db.VarChar(560)
     admin           admin       @relation(fields: [idAdmin], references: [id])
     idAdmin         Int
 }
