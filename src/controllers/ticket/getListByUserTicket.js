@@ -13,6 +13,6 @@ export default async function getListByUserTicket(req, res){
         tickets.push(ticket);
     }
     
-    return res.json(result).status(200);       
+    return res.json(tickets).status(200);       
 }
 

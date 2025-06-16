@@ -20,7 +20,7 @@ export default async function configTicket(id){
     const startDate = configDate(session.startDate);
     const startHour = configHour(session.startDate);
     const endHour = configHour(session.endHour);
-    const typeReserve = configTypeReserve();
+    const typeReserve = configTypeReserve(reserve.isHalf);
 
     return {
                     isPCD : reserve.isPCD,
@@ -43,8 +43,8 @@ export default async function configTicket(id){
     }
 }
 
-function configTypeReserve(){
-    if(reserve.isHalf){
+function configTypeReserve(isHalf){
+    if(isHalf){
         return "Meia"
     }
     
