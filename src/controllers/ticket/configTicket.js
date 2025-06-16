@@ -22,7 +22,8 @@ export default async function configTicket(id){
     const endHour = configHour(session.endHour);
     const typeReserve = configTypeReserve(reserve.isHalf);
 
-    return {
+    return {        
+                    id : reserve.id,
                     isPCD : reserve.isPCD,
                     seat : reserve.seat,
                     typeReserve: typeReserve,
