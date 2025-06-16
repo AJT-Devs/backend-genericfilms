@@ -1,24 +1,34 @@
 import {updateRoom} from "../../models/room.js"
+import {roomValidator} from "../../models/room.js"
 
 export default async function putRoom(req, res, next) {
     try{
             const {id} = req.params
             const room = req.body
-            // const {success, error, data: roomValidated} = roomValidator(+id, {city: true, adress: true, uf: true})
             
-            // Aplicar verificação se houver erro
+            const { success, error, data } = roomValidator(room, {
+                 id: true,
+                 name: true,
+                 numSeats: true,
+                 numPCD: true,
+                 idCinema: true
+            });
+
+            if(!success){
+                return res.status(400).json({
+                    message: "Erro ao validar os dados da sala!",
+                    errors: error.flatten().fieldErrors
+                });
+            }
             
-            const result = await updateRoom(+id, room)
-            //const result = await update(roomValidated.id)
+            const result = await updateRoom(+id, data)
     
             return res.json({
-                message: `room atualizado com sucesso`,
+                message: `sala atualizado com sucesso`,
                 room: result
             })
         }
         catch(error){
-            //Mensagem personalizada de erro
-            //next(error)
-            console.log(error)
+            next(error);
         }
 }

@@ -5,13 +5,15 @@ import postRoom from '../controllers/room/postRoom.js';
 import putRoom from '../controllers/room/putRoom.js';
 import deleteRoom from '../controllers/room/deleteRoom.js';
 
-const Room = express.Router();
+const room = express.Router();
+room.use(express.json());
 
 
-Room.get('/:id', getRoom);
-Room.get('/list', getListRoom);
-Room.post('/', postRoom);
-Room.put('/:id', putRoom);
-Room.delete('/:id', deleteRoom);
 
-export default Room;
+room.get('/list/:idCinema', getListRoom);
+room.get('/:id', getRoom);
+room.post('/', postRoom);
+room.put('/:id', putRoom);
+room.delete('/:id', deleteRoom);
+
+export default room;
