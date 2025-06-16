@@ -3,7 +3,6 @@ import multer from 'multer';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import { dirname } from 'path';
-import upload from './routers/upload.js';
 import movie from './routers/movie.js';
 import user from './routers/user.js';
 import cinema from './routers/cinema.js';
@@ -39,7 +38,6 @@ app.use('/cinema', cinema);
 app.use('/session', session);
 app.use('/admin', admin);
 app.use('/reserve', reserve);
-app.use('/upload', upload);
 app.use('/ticket', ticket);
 app.use('/auth', auth);
 
