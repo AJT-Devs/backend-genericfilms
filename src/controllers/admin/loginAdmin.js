@@ -14,16 +14,16 @@ export default async function loginAdmin(req, res) {
             });
         }
         
-        // const passwordValid = bycrypt.compareSync(password, admin.password);
-        // if(!passwordValid){
-        //     return res.status(400).json({
-        //         message: "Senha inválida!"
-        //     });
-        // }
+        const passwordValid = bycrypt.compareSync(password, admin.password);
+        if(!passwordValid){
+            return res.status(400).json({
+                message: "Senha inválida!"
+            });
+        }
 
         const SECRET = process.env.SECRET;
         
-        const token = jwt.sign({admin},SECRET, {expiresIn: '30m'});
+        const token = jwt.sign({admin},SECRET, {expiresIn: '30min'});
         // const refreshToken = jwt.sign({admin}, SECRET, {expiresIn: '90min'});
 
         const result = {
@@ -33,7 +33,7 @@ export default async function loginAdmin(req, res) {
         }
 
         await createSessionAdmin(result);
-        // res.cookie('token', token, { httpOnly: true, sameSite: 'None', secure: false, maxAge: 30 * 60 * 1000 })
+        res.cookie('token', token, { httpOnly: true, sameSite: 'None', secure: false, maxAge: 30 * 60 * 1000 })
 
         return res.status(200).json({
             message: "Administrador logado com sucesso!",

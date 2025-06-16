@@ -3,7 +3,7 @@ import { cinemaValidator } from "../../models/cinema.js";
 
 export default async function postCinema(req, res, next) {
     try{
-        const cinema = req.body
+        const cinema = req.body;
         const { success, error, data } = cinemaValidator(cinema, {id: true})
         
         if(!success){

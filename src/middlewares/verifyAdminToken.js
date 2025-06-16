@@ -3,7 +3,7 @@ import { readByTokenSessionAdmin } from '../models/admin.js';
 import { readAdmin } from '../models/admin.js';
 import { updateSessionAdmin } from '../models/admin.js';
 
-export default async function verifyToken(req, res, next){
+export default async function verifyAdminToken(req, res, next){
     const token = req.cookies.token;
     // const token = req.headers["authorization"].split(" ")[1];
     
@@ -24,8 +24,6 @@ export default async function verifyToken(req, res, next){
             return res.status(401).json({message: "Token expirado!"});
         }
 
-        //res.clearCookie('token', { httpOnly: true, sameSite: 'None', secure: false })
-
         const admin = await readAdmin(verifyToken.idAdmin);
         if(!admin){
             return res.status(401).json({message: "Erro ao atualizar token!"});
@@ -37,15 +35,12 @@ export default async function verifyToken(req, res, next){
             return res.status(401).json({message: "Erro ao atualizar token!"});
         }
 
-        res.status(200).json({
-            message: "Token validado e atualizado com sucesso!",
-            newToken: refreshToken
-        });
+        
+        req.body.token = refreshToken;
+        res.cookie('token', refreshToken, { httpOnly: true, sameSite: 'None', secure: false, maxAge: 30 * 60 * 1000 })
 
-        // res.cookie('token', refreshToken, { httpOnly: true, sameSite: 'None', secure: false, maxAge: 30 * 60 * 1000 })
-
-        // next();
+        next();
     }catch(error){
-        res.status(401).json({message:"Acesso negado"})
+        return res.status(401).json({message:"Acesso negado"});
     }
 }

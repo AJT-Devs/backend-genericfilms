@@ -10,13 +10,15 @@ import verifyAdminToken from '../middlewares/verifyAdminToken.js';
 
 const admin = express.Router();
 
-admin.get('/', getAdmin);
+admin.use(express.json());
+
+
+admin.get('/:id', verifyAdminToken, getAdmin);
 admin.post('/', postAdmin);
-admin.post('/login', express.json(),loginAdmin);
-admin.post('/verifytoken', express.json(),verifyAdminToken);
-admin.delete('/logout', express.json(),logoutAdmin); 
-admin.put('/', putAdmin);
-admin.patch('/', patchAdmin);
-admin.delete('/', deleteAdmin);
+admin.post('/login', loginAdmin);
+admin.delete('/logout', verifyAdminToken, logoutAdmin); 
+admin.put('/', verifyAdminToken, putAdmin);
+admin.patch('/:id', verifyAdminToken, patchAdmin);
+admin.delete('/', verifyAdminToken, deleteAdmin);
 
 export default admin;
