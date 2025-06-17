@@ -62,8 +62,10 @@ export const reserveValidator = (reserve, partial = null) => {
     return reserveSchema.safeParse(reserve);
 }
 
-export async function listByUserReserve(){
-    const result = await prisma.reserve.findMany();
+export async function listByUserReserve(idUser){
+    const result = await prisma.reserve.findMany({
+        where:{idUser}
+    });
     return result;
 }
 
