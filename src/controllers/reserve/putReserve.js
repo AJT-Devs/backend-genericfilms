@@ -7,7 +7,6 @@ export default async function putReserve(req, res, next) {
         const reserve = req.body;
 
         const {success, error, data} = reserveValidator(reserve, {
-            buyDate: true,
             method: true,
             isPCD: true,
             seat: true,

@@ -10,10 +10,6 @@ const reserveSchema = z.object({
     })
         .positive()
         .min(1, 'ID deve ser maior que 0'),
-    buyDate: z.string({
-        required_error: 'Data de compra é necessária',
-        invalid_type_error: 'Data de compra deve ser uma data válida'
-    }),
     method: z.string({
         required_error: 'Método de pagamento é necessário',
         invalid_type_error: 'Método de pagamento deve ser uma string'

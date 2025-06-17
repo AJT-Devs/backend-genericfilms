@@ -5,7 +5,7 @@ export default async function postReserve(req, res, next) {
     try{
         const reserve = req.body;
         
-        const { success, error, data } = reserveValidator(reserve, { id: true});
+        const { success, error, data } = reserveValidator(reserve, { id: true });
 
         if(!success){
             return res.status(400).json({

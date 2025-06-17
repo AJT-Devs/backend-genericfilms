@@ -1,4 +1,4 @@
-import { deleteToken } from "../../models/token.js";
+import { deleteToken } from "../../../models/token.js";
 
 const logoutUserController = async (req, res, next) => {
     try {

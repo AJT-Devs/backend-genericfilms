@@ -6,3 +6,7 @@ export default function configDate(date){
 
         return `${date[2]}/${date[1]}/${date[0]}`;
     }
+
+export function configISOdate(){
+    return 0;
+}

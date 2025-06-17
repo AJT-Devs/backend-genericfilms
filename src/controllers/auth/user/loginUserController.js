@@ -1,5 +1,5 @@
-import { loginValidator, getEmailUser } from "../../models/user.js";
-import {createToken}  from '../../models/token.js';
+import { loginValidator, getEmailUser } from "../../../models/user.js";
+import {createToken}  from '../../../models/token.js';
 import bycrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
