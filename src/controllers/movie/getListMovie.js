@@ -9,7 +9,7 @@ export default async function getListMovie(req, res, next) {
     try {
         const result = await readAllMovies();
 
-        if (!result || result.length === 0) {
+        if (!result) {
             return res.status(404).json({
                 message: 'Nenhum filme encontrado'
             });

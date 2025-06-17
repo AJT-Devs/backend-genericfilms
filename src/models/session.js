@@ -1,30 +1,28 @@
 import { PrismaClient } from "@prisma/client"
 import { z } from "zod";
 
+const prisma = new PrismaClient();
+
 const sessionSchema = z.object({
-    id: z.number({
-        required_error: 'ID é necessário',
-        invalid_type_error: 'ID deve ser um número'
-    }).positive(),
     startDate: z.string({
         required_error: 'Data de início é necessária',
         invalid_type_error: 'Data de início deve ser uma string'
     })
-    // Aceita data ou data+hora no formato ISO
-    .refine(val => !isNaN(Date.parse(val)), {
-        message: 'Data de início deve ser uma data válida (YYYY-MM-DD ou ISO).'
-    }),
+        .refine(val => !isNaN(Date.parse(val)), {
+            message: 'Data de início deve ser uma data válida (YYYY-MM-DD ou ISO).'
+        }),
     endHour: z.string({
         required_error: 'Hora de término é necessária',
         invalid_type_error: 'Hora de término deve ser uma string'
     })
-    // Aceita HH:mm
-    .regex(/^([01]\d|2[0-3])?$/, 'Hora deve estar no formato HH:mm ou HH:mm:ss'),
+        .refine(val => !isNaN(Date.parse(val)), {
+            message: 'Data de início deve ser uma data válida (YYYY-MM-DD ou ISO).'
+        }),
     price: z.number({
         required_error: 'Preço é necessário',
         invalid_type_error: 'Preço deve ser um número'
     })
-    .positive(),
+        .positive(),
     format: z.string({
         required_error: 'Formato é necessário',
         invalid_type_error: 'Formato deve ser uma string'
@@ -37,15 +35,21 @@ const sessionSchema = z.object({
         required_error: 'ID da sala é necessário',
         invalid_type_error: 'ID da sala deve ser um número'
     })
-    .positive(),
+        .positive(),
     idMovie: z.number({
         required_error: 'ID do filme é necessário',
         invalid_type_error: 'ID do filme deve ser um número'
     })
-    .positive()
+        .positive()
 });
 
-const prisma = new PrismaClient();
+export const sessionValidator = (data, partialKeys) => {
+    if (Array.isArray(partialKeys) && partialKeys.length > 0) {
+        return sessionSchema.partial(partialKeys).safeParse(data);
+    }
+    return sessionSchema.safeParse(data);
+}
+
 
 export async function listSession() {
     const result = await prisma.session.findMany();
@@ -61,7 +65,16 @@ export async function readSession(id) {
 
 export async function createSession(content) {
     const result = await prisma.session.create({
-        data: content
+        data: content,
+        select: {
+            startDate: true,
+            endHour: true,
+            price: true,
+            format: true,
+            language: true,
+            idRoom: true,
+            idMovie: true
+        }
     });
     return result;
 }
@@ -69,7 +82,17 @@ export async function createSession(content) {
 export async function updateSession(id, content) {
     const result = await prisma.session.update({
         where: { id },
-        data: content
+        data: content,
+        select: {
+            startDate: true,
+            endHour: true,
+            price: true,
+            format: true,
+            language: true,
+            idRoom: true,
+            idMovie: true
+        }
+
     });
     return result;
 }
