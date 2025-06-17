@@ -1,4 +1,4 @@
-import { deleteSessionAdmin } from "../../models/admin.js";
+import { deleteSessionAdmin } from "../../../models/admin.js";
 import jwt from 'jsonwebtoken';
 
 export default async function logoutAdmin(req, res) {

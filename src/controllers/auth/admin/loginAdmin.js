@@ -1,5 +1,5 @@
-import { readByEmailAdmin } from "../../models/admin.js";
-import { createSessionAdmin } from "../../models/admin.js";
+import { readByEmailAdmin } from "../../../models/admin.js";
+import { createSessionAdmin } from "../../../models/admin.js";
 import jwt from 'jsonwebtoken';
 import bycrypt from 'bcrypt';
 

@@ -1,7 +1,8 @@
-import { adminValidator, createAdmin } from "../../models/admin.js";
+import { adminValidator } from '../../../models/admin.js';
+import { createAdmin } from '../../../models/admin.js';
 import bcrypt from 'bcrypt';
 
-export default async function postAdmin(req, res, next){
+export default async function signUpAdmin(req, res, next){
     try{
         const admin = req.body;
         const { success, error, data } = adminValidator(admin, { id: true });

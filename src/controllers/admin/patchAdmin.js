@@ -19,7 +19,7 @@ export default async function patchAdmin(req, res, next){
 
             admin.password = data.newPassword;
 
-            const {success, error, data: adminValidated} = adminValidator(admin, {name: true, email: true, cargo: true, password: true});
+            const {success, error, data: adminValidated} = adminValidator(admin, {name: true, email: true, cargo: true});
             if(!success){
                 return res.status(400).json({
                     message: "Erro ao validar os dados do administrador!",

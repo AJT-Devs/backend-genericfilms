@@ -1,4 +1,4 @@
-import { userValidator, createUser } from '../../models/user.js';
+import { userValidator, createUser } from '../../../models/user.js';
 import bcrypt from 'bcrypt';
 
 export default async function signUpUserController(req, res, next) {
