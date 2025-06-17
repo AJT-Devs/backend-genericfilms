@@ -8,7 +8,7 @@ export default async function loginAdmin(req, res) {
     try{
         const {email, password} = req.body;
 
-        const alreadyLogged = await alreadyLoggedAdmin(req.headers["authorization"].split(" ")[1]);
+        const alreadyLogged = await alreadyLoggedAdmin(req.headers["authorization"]?.split(" ")[1]);
         if(alreadyLogged){
             return res.status(401).json({
                 message: "Administrador já está logado!"

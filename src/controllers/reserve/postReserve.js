@@ -13,6 +13,7 @@ export default async function postReserve(req, res, next) {
                 errors: error.flatten().fieldErrors
             });
         }
+        data.buyDate = new Date();
 
         const result = await createReserve(data);
 

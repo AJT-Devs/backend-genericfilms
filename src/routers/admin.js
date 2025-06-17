@@ -15,7 +15,8 @@ admin.use(express.json());
 
 admin.get('/list', verifyAdminToken, getListAdmin);
 admin.get('/:id', verifyAdminToken, getAdmin);
-admin.post('/signup', verifyAdminToken, signUpAdmin);
+admin.post('/signup', signUpAdmin);
+// admin.post('/signup', verifyAdminToken, signUpAdmin);
 admin.post('/login', loginAdmin);
 admin.delete('/logout', verifyAdminToken, logoutAdmin); 
 admin.put('/:id', verifyAdminToken, putAdmin);
