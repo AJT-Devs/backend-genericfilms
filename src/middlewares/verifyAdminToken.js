@@ -5,6 +5,7 @@ import { readAdmin } from '../models/admin.js';
 export default async function verifyAdminToken(req, res, next){
     
     // const token = req.cookies.token;
+    const authorization = req.headers["authorization"];
 
     if (!authorization) {
         return res.status(403).json({ error: "Não Autorizado, Token não informado!" })

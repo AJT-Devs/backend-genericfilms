@@ -5,13 +5,13 @@ import postReserve from '../controllers/reserve/postReserve.js';
 import putReserve from '../controllers/reserve/putReserve.js';
 import patchReserve from '../controllers/reserve/patchReserve.js';
 import deleteReserve from '../controllers/reserve/deleteReserve.js';
-import verifyAdminToken from '../middlewares/verifyAdminToken.js';
+import { authMiddleware } from '../Middlewares/verifyUserToken.js';
 
 const reserves = express.Router();
 
 
 reserves.use(express.json());
-// reserves.use(verifyAdminToken);
+reserves.use(authMiddleware); 
 
 reserves.get('/list/:id', getListReserve);
 reserves.get('/:id', getReserve);

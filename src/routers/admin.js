@@ -13,13 +13,13 @@ const admin = express.Router();
 
 admin.use(express.json());
 
-admin.get('/list', getListAdmin);
+admin.get('/list', verifyAdminToken, getListAdmin);
 admin.get('/:id', verifyAdminToken, getAdmin);
-admin.post('/signup', signUpAdmin);
+admin.post('/signup', verifyAdminToken, signUpAdmin);
 admin.post('/login', loginAdmin);
-admin.delete('/logout',  logoutAdmin); 
-admin.put('/:id', putAdmin);
+admin.delete('/logout', verifyAdminToken, logoutAdmin); 
+admin.put('/:id', verifyAdminToken, putAdmin);
 admin.patch('/:id', verifyAdminToken, patchAdmin);
-admin.delete('/:id', deleteAdmin); 
+admin.delete('/:id', verifyAdminToken, deleteAdmin); 
 
 export default admin;

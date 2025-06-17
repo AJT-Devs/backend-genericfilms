@@ -4,13 +4,14 @@ import postSession from '../controllers/session/postSession.js';
 import putSession from '../controllers/session/putSession.js';
 import patchSession from '../controllers/session/patchSession.js';
 import deleteSession from '../controllers/session/deleteSession.js';
+import verifyAdminToken from '../middlewares/verifyAdminToken.js';
 
 const session = express.Router();
 
 session.get('/', getSession);
-session.post('/', postSession);
-session.put('/', putSession);  
-session.patch('/', patchSession);    
-session.delete('/', deleteSession);
+session.post('/', verifyAdminToken, postSession);
+session.put('/', verifyAdminToken, putSession);  
+session.patch('/', verifyAdminToken, patchSession);    
+session.delete('/', verifyAdminToken, deleteSession);
 
 export default session;

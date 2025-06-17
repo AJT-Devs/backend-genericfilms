@@ -18,16 +18,15 @@ export const authMiddleware = (req, res, next) => {
     }
     try {
         const result = jwt.verify(accessToken, process.env.SECRET)
-
         req.userLogged = {
             id: result.id,
             name: result.name,
             email: result.email,
             cpf: result.cpf,
             birthdate: result.birthdate,
-            telNumber: result.telNumber
+            telNumber: result.telNumber,
+            cargo: result.cargo
         }
-
         next()
     } catch (error) {
         if (error?.name === 'TokenExpiredError')

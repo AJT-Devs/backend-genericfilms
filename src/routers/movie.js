@@ -5,10 +5,11 @@ import postMovie from '../controllers/movie/postMovie.js';
 import putMovie from '../controllers/movie/putMovie.js';
 import deleteMovie from '../controllers/movie/deleteMovie.js';
 import uploadMiddleware from '../middlewares/uploadImage.js';
+import verifyAdminToken from '../middlewares/verifyAdminToken.js';
 
 const movie = express.Router();
 
-movie.post('/movie',
+movie.post('/movie', verifyAdminToken,
     uploadMiddleware.fields([
         { name: "poster", maxCount: 1 },
         { name: "banner", maxCount: 1 }
@@ -16,7 +17,7 @@ movie.post('/movie',
     postMovie
 );
 
-movie.put('/put/:id',
+movie.put('/put/:id',verifyAdminToken,
     uploadMiddleware.fields([
         { name: "poster", maxCount: 1 },
         { name: "banner", maxCount: 1 }
@@ -27,6 +28,6 @@ movie.put('/put/:id',
 movie.get('/list', express.json(), getListMovie);
 
 movie.get('/:id', getMovie);
-movie.delete('/:id', deleteMovie);
+movie.delete('/:id', verifyAdminToken, deleteMovie);
 
 export default movie;

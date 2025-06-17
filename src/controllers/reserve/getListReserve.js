@@ -5,6 +5,7 @@ import configHour from "../../middlewares/dateHour/configHour.js";
 export default async function getListReserve(req, res, next) {
     try{
         const {id} = req.params;
+
         const result = await listByUserReserve(+id);
 
         for(let i = 0; i< result.length; i++){

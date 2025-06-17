@@ -2,7 +2,7 @@ import express from 'express';
 import signUpController from '../controllers/auth/user/singUpUserController.js';
 import loginUserController from '../controllers/auth/user/loginUserController.js';
 import logoutUserController from '../controllers/auth/user/logoutUserController.js'; 
-import {authMiddleware} from '../Middlewares/verifyUserToken.js';
+import {authMiddleware} from '../middlewares/verifyUserToken.js';
 
 const auth = express.Router();
 auth.use(express.json());
