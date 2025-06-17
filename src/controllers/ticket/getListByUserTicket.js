@@ -4,7 +4,7 @@ import configTicket from "./configTicket.js";
 export default async function getListByUserTicket(req, res){
     const {id} = req.params;
 
-    const reserves = await listByUserReserve(id);
+    const reserves = await listByUserReserve(+id);
 
     let tickets = [];
     for(let i = 0; i < reserves.length; i++){
