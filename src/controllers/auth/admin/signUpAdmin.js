@@ -1,5 +1,7 @@
 import { adminValidator } from '../../../models/admin.js';
 import { createAdmin } from '../../../models/admin.js';
+import { readByTokenSessionAdmin } from '../../../models/sessionAdmin.js';
+import { updateSessionAdmin } from '../../../models/sessionAdmin.js';
 import bcrypt from 'bcrypt';
 
 export default async function signUpAdmin(req, res, next){

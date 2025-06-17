@@ -32,7 +32,10 @@ app.use('/uploads', express.static(path.join(__dirname, './uploads')));
 
 //middlewares
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({
+  origin: 'http://127.0.0.1:5500', // ou 'http://localhost:5500' dependendo do Live Server
+  credentials: true
+}));
 
 //Routes
 app.use('/movie', movie);
