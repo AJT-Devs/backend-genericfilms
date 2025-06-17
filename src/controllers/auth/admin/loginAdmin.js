@@ -56,6 +56,7 @@ export default async function loginAdmin(req, res) {
     } catch(error){
         return res.status(400).json({
             message: "Erro ao autenticar administrador!",
+            error: error.message || error
         });
     }
 }

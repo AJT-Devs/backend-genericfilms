@@ -13,7 +13,7 @@ const admin = express.Router();
 
 admin.use(express.json());
 
-admin.get('/list', verifyAdminToken, getListAdmin);
+admin.get('/list', verifyAdminToken, express.json(), getListAdmin);
 admin.get('/:id', verifyAdminToken, getAdmin);
 admin.post('/signup', signUpAdmin);
 // admin.post('/signup', verifyAdminToken, signUpAdmin);

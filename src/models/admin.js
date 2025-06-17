@@ -26,7 +26,7 @@ const adminSchema = z.object({
         required_error: 'Senha é necessária',
         invalid_type_error: 'Senha deve ser uma string'
     })
-        .min(8, 'Senha deve ter pelo menos 6 caracteres')
+        .min(8, 'Senha deve ter pelo menos 8 caracteres')
         .max(100, 'Senha deve ter no máximo 100 caracteres'),
     cargo: z.string({
         required_error: 'Cargo é necessário',
