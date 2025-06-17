@@ -80,7 +80,7 @@ model session {
 
 model reserve {
     id        Int      @id @default(autoincrement())
-    buyDate   DateTime @db.Timestamp() @default(now())
+    buyDate   DateTime @db.Timestamp()
     method    String   @db.VarChar(50)
     isPCD     Boolean  @db.Bit(1)
     seat      String   @db.VarChar(3)
