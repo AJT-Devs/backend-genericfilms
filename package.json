@@ -20,6 +20,7 @@
     "multer": "^2.0.0",
     "path": "^0.12.7",
     "puppeteer": "^24.8.0",
+    "qrcode": "^1.5.4",
     "zod": "^3.24.4"
   },
   "devDependencies": {

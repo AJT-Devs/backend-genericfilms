@@ -5,6 +5,10 @@ export default async function getListReserve(req, res, next) {
         const {id} = req.params;
         const result = await listByUserReserve(+id);
 
+        if(!result.length){
+            return res.status(404).json({ message: "Nenhuma reserva encontrada para este usuário" });
+        }
+
         return res.json({
             message: `Lista de reservas do usuário ID ${id}`,
             result

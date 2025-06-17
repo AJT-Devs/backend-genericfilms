@@ -6,6 +6,10 @@ export default async function getCinema(req, res, next) {
 
         const result = await readCinema(+id)
 
+        if(!result){
+            return res.status(404).json({message: "Cinema não encontrado"})
+        }
+
         return res.json({
             cinema: result
         })

@@ -5,6 +5,7 @@ import { readRoom } from "../../models/room.js";
 import { readCinema } from "../../models/cinema.js";
 import configDate from "../../middlewares/dateHour/configDate.js";
 import configHour from "../../middlewares/dateHour/configHour.js";
+import QRCode from "qrcode";
 
 export default async function configTicket(id){
     const reserve = await readReserve(id);
@@ -21,6 +22,8 @@ export default async function configTicket(id){
     const startHour = configHour(session.startDate);
     const endHour = configHour(session.endHour);
     const typeReserve = configTypeReserve(reserve.isHalf);
+    
+    const qrcode = await QRCode.toDataURL(`http://localhost:3000/ticket/valid/${reserve.id}`);
 
     return {        
                     id : reserve.id,
@@ -39,7 +42,7 @@ export default async function configTicket(id){
                     cinemaUF : cinema.uf,
                     movieTitle : movie.title,
                     moviePoster : movie.poster,
-                    //QRCODE: reserve.qrcode,
+                    qrcode : qrcode,
                     price : session.price
     }
 }

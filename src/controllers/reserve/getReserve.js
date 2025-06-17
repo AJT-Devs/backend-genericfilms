@@ -6,6 +6,10 @@ export default async function getReserve(req, res) {
 
         const reserve = await readReserve(+id);
 
+        if(!reserve) {
+            return res.status(404).json({ message: "Reserva não encontrada" });
+        }
+
         return res.json(reserve).status(200);
 
     }catch (error) {

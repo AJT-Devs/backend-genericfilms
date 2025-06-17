@@ -15,13 +15,13 @@ export default async function verifyAdminToken(req, res, next){
         const SECRET = process.env.SECRET;
         const validToken = jwt.verify(token, SECRET);
         if(!validToken){
-            return res.status(401).json({message: "Token inválido!"});
+            return res.status(401).json({message: "Token expirado!"});
         }
 
         const verifyToken = await readByTokenSessionAdmin(token);
 
         if(!verifyToken){
-            return res.status(401).json({message: "Token expirado!"});
+            return res.status(401).json({message: "Token inválido!"});
         }
 
         const admin = await readAdmin(verifyToken.idAdmin);
