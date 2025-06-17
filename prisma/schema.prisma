@@ -90,6 +90,7 @@ model reserve {
     idUser    Int
     session   session  @relation(fields: [idSession], references: [id])
     idSession Int
+    isUsed    Boolean  @default(false) @db.Bit(1)
 }
 
 model sessionAdmin{

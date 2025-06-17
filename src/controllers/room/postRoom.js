@@ -1,24 +1,28 @@
 import {createRoom} from "../../models/room.js"
+import {roomValidator} from "../../models/room.js"
 
 export default async function postRoom(req, res, next) {
     try{
-        const room = req.body
-        // const {success, error, data: roomValidated} = roomValidator(room, {id: true})
+        const room = req.body;
+
+        const { success, error, data } = roomValidator(room, { id: true });
         
-        // Aplicar verificação se houver erro
+        if(!success){
+            return res.status(400).json({
+                message: "Erro ao validar os dados da sala!",
+                errors: error.flatten().fieldErrors
+            });
+        }
         
-        const result = await createRoom(room)
-        //const result = await create(roomValidated)
+        const result = await createRoom(data);
 
         return res.json({
-            message: "room cadastrado com sucesso!",
-            room: result
+            message: "sala cadastrado com sucesso!",
+            room: data
         })
     }
     catch(error){
-        //Mensagem de erro personalizada
-        //next(error)
-        console.log(error)
+        next(error);
     }
     
 }
