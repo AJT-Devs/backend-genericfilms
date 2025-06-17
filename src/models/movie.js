@@ -25,7 +25,7 @@ const movieSchema = z.object({
         required_error: 'synopsis é necessária',
         invalid_type_error: 'synopsis deve ser uma string'
     })
-        .max(100, 'synopsis deve ter no máximo 100 caracteres'),
+        .max(999, 'synopsis deve ter no máximo 999 caracteres'),
     director: z.string({
         required_error: 'Diretor é necessário',
         invalid_type_error: 'Diretor deve ser uma string'
@@ -49,7 +49,7 @@ const movieSchema = z.object({
         required_error: 'Gênero é necessário',
         invalid_type_error: 'Gênero deve ser uma string'
     })
-        .max(50, 'Gênero deve ter no máximo 50 caracteres'),
+        .max(150, 'Gênero deve ter no máximo 150 caracteres'),
     poster: z.string({
         required_error: 'Poster é necessário',
         invalid_type_error: 'Poster deve ser uma string'
@@ -81,6 +81,34 @@ export async function readMovie(id) {
     return result;
 }
 
+export async function readMovieByTitle(title) {
+    const result = await prisma.movie.findUnique({
+        where: { title }
+    });
+
+    return result;
+}
+
+export async function readAllMovies() {
+    const result = await prisma.movie.findMany({
+        select: {
+            id: true,
+            title: true,
+            duration: true,
+            trailer: true,
+            synopsis: true,
+            director: true,
+            releaseDate: true,
+            classification: true,
+            gender: true,
+            cast: true,
+            poster: true,
+            banner: true
+        }
+    })
+            return result;
+};
+
 export async function createMovie(movie) {
     //Banner informado somente como URL
     const result = await prisma.movie.create({
@@ -103,10 +131,23 @@ export async function createMovie(movie) {
     return result;
 }
 
-export async function updateMovie(id, movie) {
+export async function updateMovieModel(id, movie) {
     const result = await prisma.movie.update({
-        where: { id },
-        data: movie
+        where: { id  },
+        data: movie,
+        select: {
+            title: true,
+            duration: true,
+            trailer: true,
+            synopsis: true,
+            director: true,
+            releaseDate: true,
+            classification: true,
+            gender: true,
+            cast: true,
+            poster: true,
+            banner: true
+        }
     });
 
     return result;

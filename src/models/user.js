@@ -126,7 +126,7 @@ export async function ReadAllUsers() {
     return result;
 }
 
-export async function updateUser(user, isoBirthdate) {
+export async function updateUser(user) {
     const result = await prisma.user.update({
         where: {
             id:  user.id
