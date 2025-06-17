@@ -1,22 +1,26 @@
-import {readMovie} from "../../models/movie.js"
+import { readMovie } from "../../models/movie.js"
 
 export default async function getMovie(req, res, next) {
-    try{
-        const {id} = req.params
-        // const {success, error, data: movieValidated} = movieValidator(+id, {city: true, adress: true, uf: true})
-        
-        // Aplicar verificação se houver erro
-        
-        const result = await readMovie(+id)
-        //const result = await get(movieValidated.id)
+    try {
+        const { id } = req.params;
 
-        return res.json({
-            movie: result
-        })
+        if (!id) {
+            return res.status(400).json({ error: 'Título do filme não informado.' });
+        }
+
+        const movie = await readMovie(+id);
+
+        if (!movie) {
+            return res.status(404).json({ error: 'Filme não encontrado.' });
+        }
+
+        return res.status(200).json({
+            message: 'Filme encontrado com sucesso',
+            movie
+        });
     }
-    catch(error){
-        //Mensagem personalizada de erro
-        //next(error)
-        console.log(error)
+    catch (error) {
+        console.log(error);
+        next(error);
     }
 }
