@@ -22,6 +22,17 @@ export default async function postRoom(req, res, next) {
         })
     }
     catch(error){
+        {
+            if (error?.code === "P2003" && error?.meta?.constraint?.includes("idCinema")) {
+                return res.status(400).json({
+                    message: "Erro ao criar sala!",
+                    errors: {
+                        idCinema: "Cinema não encontrado"
+                    }
+                });
+            }
+        }
+
         next(error);
     }
     
