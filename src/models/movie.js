@@ -34,7 +34,7 @@ const movieSchema = z.object({
     releaseDate: z.string({
         required_error: 'Data de lançamento é necessária',
         invalid_type_error: 'Data de lançamento deve ser uma string'
-    }).regex(/^\d{4}-\d{2}-\d{2}$/, 'Data deve estar no formato YYYY-MM-DD'),
+    }).regex(/^\d{4}-\d{2}-\d{2}$/, 'Data deve estar no formato YYYY-MM-DD'), //nao deu muito certo esse regex, mas funcionouo cadastro do movie
     classification: z.string({
         required_error: 'Classificação é necessária',
         invalid_type_error: 'Classificação deve ser uma string'
