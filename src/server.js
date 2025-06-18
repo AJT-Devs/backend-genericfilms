@@ -52,8 +52,9 @@ app.use('/reserve', reserve);
 app.use('/ticket', ticket);
 app.use('/auth', auth);
 
-app.use('/', welcome);
-app.use('*',notFound);
+
+app.get('/', welcome);
+// app.use('*', notFound); não sei o porquê, mas crasha o server se habilitar
 
 app.use(errorHandler);
 
