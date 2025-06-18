@@ -15,6 +15,9 @@ import auth from './routers/auth.js';
 import {errorHandler} from './middlewares/errorsHandler.js';
 import cookieParser from 'cookie-parser';
 import cors from "cors";
+import notFound from './controllers/notFound.js';
+import welcome from './controllers/welcome.js';
+import { logger } from './middlewares/logger.js';
 
 const port = 3000;
 
@@ -36,6 +39,7 @@ app.use(cors({
   origin: 'http://127.0.0.1:5500', // ou 'http://localhost:5500' dependendo do Live Server
   credentials: true
 }));
+app.use(logger);
 
 //Routes
 app.use('/movie', movie);
@@ -48,12 +52,11 @@ app.use('/reserve', reserve);
 app.use('/ticket', ticket);
 app.use('/auth', auth);
 
+app.use('/', welcome);
+app.use('*',notFound);
+
 app.use(errorHandler);
 
-// funções
-app.get('/', (req, res) => {
-    return res.send("hello world");
-});
 
 app.listen(port, () => {
     console.log(`http://localhost:${port}`);
