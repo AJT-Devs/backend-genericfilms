@@ -36,7 +36,7 @@ app.use('/uploads', express.static(path.join(__dirname, './uploads')));
 //middlewares
 app.use(cookieParser());
 app.use(cors({
-  origin: 'http://127.0.0.1:5500', // ou 'http://localhost:5500' dependendo do Live Server
+  origin: 'http://127.0.0.1:5501', // ou 'http://localhost:5500' dependendo do Live Server
   credentials: true
 }));
 app.use(logger);

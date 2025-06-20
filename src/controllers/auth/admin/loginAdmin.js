@@ -8,13 +8,7 @@ export default async function loginAdmin(req, res) {
     try{
         const {email, password} = req.body;
 
-        const alreadyLogged = await alreadyLoggedAdmin(req.headers["authorization"]?.split(" ")[1]);
-        if(alreadyLogged){
-            return res.status(401).json({
-                message: "Administrador já está logado!"
-            });
-        }
-        
+ 
         const admin = await readByEmailAdmin(email);
         if(!admin){
             return res.status(401).json({
@@ -34,7 +28,8 @@ export default async function loginAdmin(req, res) {
 
         const SECRET = process.env.SECRET;
         
-        const token = jwt.sign({admin},SECRET, {expiresIn: '30min'});
+        // const token = jwt.sign({admin},SECRET, {expiresIn: '30min'});
+        const token = jwt.sign({admin},SECRET);
         // const refreshToken = jwt.sign({admin}, SECRET, {expiresIn: '90min'});
 
         const result = {
@@ -61,25 +56,3 @@ export default async function loginAdmin(req, res) {
     }
 }
 
-async function alreadyLoggedAdmin(adminToken) {
-    try{
-        const sessionAdmin = await readByTokenSessionAdmin(adminToken);
-
-        const SECRET = process.env.SECRET;
-
-        const validToken = jwt.verify(adminToken, SECRET);
-
-        
-        if(!validToken){
-            return false;
-        }
-
-        if(sessionAdmin.token === adminToken){
-            return true;
-        }
-
-        return false;
-    } catch(error){
-        return false;
-    }
-}

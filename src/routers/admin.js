@@ -7,12 +7,15 @@ import deleteAdmin from '../controllers/admin/deleteAdmin.js';
 import signUpAdmin from '../controllers/auth/admin/signUpAdmin.js';
 import loginAdmin from '../controllers/auth/admin/loginAdmin.js';
 import logoutAdmin from '../controllers/auth/admin/logoutAdmin.js';
+import alreadyLoggedAdmin from '../controllers/auth/admin/alreadyLogged.js';
 import verifyAdminToken from '../middlewares/verifyAdminToken.js';
 
 const admin = express.Router();
 
 admin.use(express.json());
 
+
+admin.get('/alreadyLoggedAdmin', alreadyLoggedAdmin); 
 admin.get('/list', verifyAdminToken, express.json(), getListAdmin);
 admin.get('/:id', verifyAdminToken, getAdmin);
 admin.post('/signup', signUpAdmin);
