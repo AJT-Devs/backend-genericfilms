@@ -57,13 +57,13 @@ const postMovie = async (req, res, next) => {
             movie: newMovie
         });
     } catch (error) {
-        if (error?.code === "P2002" && error?.meta?.target === "title") {
+        if (error?.code === "P2002" && error?.meta?.target === "title" || error?.meta?.target === "movie_title_key") {
             return res.status(400).json({
                 message: "Erro ao criar filme!",
                 errors: {
                     title: "Já existe um filme com esse título."
                 }
-            });
+            })
         }
         console.error(error);
         return res.status(500).json({
