@@ -12,7 +12,7 @@ export default async function validTicket(req, res, next) {
         }
 
         if(reserve.isUsed){
-            return res.status(400).json({ message: "Ticket inválido" });
+            return res.status(400).json({ message: "Ticket inválido, já foi usado" });
         }
         reserve.isUsed = true;
         await updateReserve(+id, reserve);
