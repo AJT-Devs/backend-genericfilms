@@ -35,7 +35,8 @@ export default async function loginAdmin(req, res) {
         const result = {
             idAdmin: admin.id,
             userAgent: req.headers['user-agent'],
-            token: token
+            token: token,
+            name: admin.name
         }
         
 
@@ -46,7 +47,8 @@ export default async function loginAdmin(req, res) {
         return res.status(200).json({
             message: "Administrador logado com sucesso!",
             id: admin.id,
-            token
+            token,
+            name: admin.name
         });
     } catch(error){
         return res.status(400).json({
