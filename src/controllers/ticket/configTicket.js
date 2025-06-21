@@ -22,8 +22,19 @@ export default async function configTicket(id){
     const startHour = configHour(session.startDate);
     const endHour = configHour(session.endHour);
     const typeReserve = configTypeReserve(reserve.isHalf);
+
+    const qrcodeOptions = {
+        errorCorrectionLevel: 'H',
+        type: 'image/jpeg',
+        quality: 0.3,
+        margin: 0,
+        color: {
+        dark:"#0F0F0F",
+        light:"#FAFAFA"
+    }
+}
     
-    const qrcode = await QRCode.toDataURL(`http://localhost:3000/ticket/valid/${reserve.id}`);
+    const qrcode = await QRCode.toDataURL(`http://localhost:3000/ticket/valid/${reserve.id}`, qrcodeOptions);
 
     return {        
                     id : reserve.id,
