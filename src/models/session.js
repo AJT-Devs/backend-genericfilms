@@ -51,8 +51,10 @@ export const sessionValidator = (data, partialKeys) => {
 }
 
 
-export async function listSession() {
-    const result = await prisma.session.findMany();
+export async function listSession(idRoom) {
+    const result = await prisma.session.findMany({
+        where: {idRoom}
+    });
     return result;
 }
 

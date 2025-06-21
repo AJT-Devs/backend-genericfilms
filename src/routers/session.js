@@ -11,7 +11,7 @@ const session = express.Router();
 const app = express();
 app.use(express.json());
 
-session.get('/list', getListSession);
+session.get('/list/:id', getListSession);
 session.get('/:id',  getSession);
 session.delete('/:id', verifyAdminToken, deleteSession);
 session.put('/:id', verifyAdminToken, express.json(), putSession);    

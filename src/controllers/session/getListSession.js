@@ -3,7 +3,8 @@ import { listSession } from "../../models/session.js";
 export default async function getListSession(req, res, next) {
     try {
 
-        const allSessions = await listSession();
+        const {id} = req.params;
+        const allSessions = await listSession(+id);
 
         if (!allSessions) {
             return res.status(404).json({
