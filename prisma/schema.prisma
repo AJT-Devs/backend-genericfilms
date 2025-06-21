@@ -59,7 +59,7 @@ model room {
     name     String    @db.Char(2)
     numSeats Int       @db.Int
     numPCD   Int       @db.Int
-    cinema   cinema    @relation(fields: [idCinema], references: [id])
+    cinema   cinema    @relation(fields: [idCinema], references: [id], onUpdate: Cascade, onDelete: Cascade)
     idCinema Int
     session  session[]
 }
@@ -71,9 +71,9 @@ model session {
     price     Decimal   @db.Decimal(5, 2)
     format    String    @db.Char(2)
     language  String    @db.VarChar(50)
-    room      room      @relation(fields: [idRoom], references: [id])
+    room      room      @relation(fields: [idRoom], references: [id], onUpdate: Cascade, onDelete: Cascade)
     idRoom    Int
-    movie     movie     @relation(fields: [idMovie], references: [id])
+    movie     movie     @relation(fields: [idMovie], references: [id], onUpdate: Cascade, onDelete: Cascade)
     idMovie   Int
     reserve   reserve[]
 }
@@ -86,9 +86,9 @@ model reserve {
     seat      String   @db.VarChar(3)
     isHalf    Boolean  @db.Bit(1)
     halfDoc   String?  @db.VarChar(50)
-    user      user     @relation(fields: [idUser], references: [id])
+    user      user     @relation(fields: [idUser], references: [id], onUpdate: Cascade, onDelete: Cascade)
     idUser    Int
-    session   session  @relation(fields: [idSession], references: [id])
+    session   session  @relation(fields: [idSession], references: [id], onUpdate: Cascade, onDelete: Cascade)
     idSession Int
     isUsed    Boolean  @default(false) @db.Bit(1)
 }
@@ -99,12 +99,12 @@ model sessionAdmin{
     updateDate      DateTime?   @db.Timestamp(0) 
     userAgent       String      @db.VarChar(255)
     token           String      @unique @db.VarChar(560)
-    admin           admin       @relation(fields: [idAdmin], references: [id])
+    admin           admin       @relation(fields: [idAdmin], references: [id], onUpdate: Cascade, onDelete: Cascade)
     idAdmin         Int
 }
 model token {
     id        Int      @id @default(autoincrement())
     token     String   @unique(map: "token") @db.VarChar(700)
     idUser    Int
-    user      user     @relation(fields: [idUser], references: [id], onDelete: Cascade)  
+    user      user     @relation(fields: [idUser], references: [id], onUpdate: Cascade, onDelete: Cascade)  
 }
