@@ -1,4 +1,4 @@
-import { updateMovieModel, movieValidator } from "../../models/movie.js"
+import { updateMovieModel, movieValidator, readMovie } from "../../models/movie.js"
 
 export default async function putMovie(req, res, next) {
     try {
@@ -7,19 +7,20 @@ export default async function putMovie(req, res, next) {
             return res.status(400).json({ error: 'ID do filme não informado.' });
         }
 
-        if (!req.files || (!req.files.poster && !req.files.banner)) {
-            return res.status(400).json({ error: 'Nenhum arquivo foi enviado.' });
+        if (id) {
+            id = Number(id);
         }
 
-        // Caminhos dos arquivos salvos
-        const poster = req.files.poster ? `/uploads/${req.files.poster[0].filename}` : null;
-        const banner = req.files.banner ? `/uploads/${req.files.banner[0].filename}` : null;
-
-        if (!poster || !banner) {
-            return res.status(400).json({
-                message: "É obrigatório enviar as duas imagens: poster e banner."
+        const FilmeAntigo = await readMovie(id);
+        if (!FilmeAntigo) {
+            return res.status(404).json({
+                error: 'Filme não encontrado',
+                message: 'O filme com o ID informado não foi encontrado'
             });
         }
+
+        const poster = req.files.poster ? `/uploads/${req.files.poster[0].filename}` : FilmeAntigo.poster;
+        const banner = req.files.banner ? `/uploads/${req.files.banner[0].filename}` : FilmeAntigo.banner;
 
         const updateMovie = req.body;
 
@@ -29,29 +30,26 @@ export default async function putMovie(req, res, next) {
 
         updateMovie.poster = poster;
         updateMovie.banner = banner;
+        
 
-        const result = movieValidator(updateMovie);
-        if (!result.success) {
+        const { success, error, data } = movieValidator(updateMovie);
+        if (!success) {
             return res.status(400).json({
                 message: "Erro ao validar os dados do atualizado do filme!",
-                errors: result.error.flatten().fieldErrors
+                errors: error.flatten().fieldErrors
             });
         }
 
-        if (updateMovie.releaseDate) {
-            const [day, month, year] = updateMovie.releaseDate.split('/');
-            updateMovie.releaseDate = new Date(`${year}-${month}-${day}`);
+        if (data.releaseDate) {
+            const [day, month, year] = data.releaseDate.split('/');
+            data.releaseDate = new Date(`${year}-${month}-${day}`);
         }
 
-        if (result.data.releaseDate) {
-            result.data.releaseDate = new Date(result.data.releaseDate);
+        if (data.releaseDate) {
+            data.releaseDate = new Date(data.releaseDate);
         }
 
-        if(id) {
-            id = Number(id);
-        }        
-
-        const newUpdateMovie = await updateMovieModel(id, result.data);
+        const newUpdateMovie = await updateMovieModel(id, data);
 
         if (!newUpdateMovie) {
             return res.status(400).json({
@@ -67,6 +65,38 @@ export default async function putMovie(req, res, next) {
 
     }
     catch (error) {
+        {
+            if (error.code === 'P2025') {
+                return res.status(404).json({
+                    error: 'Filme não encontrado',
+                    message: 'O filme com o ID informado não foi encontrado'
+                });
+            }
+            if (error?.code === "P2002" && error?.meta?.target === "title" || error?.meta?.target === "movie_title_key") {
+                return res.status(400).json({
+                    message: "Erro ao atualizar filme!",
+                    errors: {
+                        title: "Já existe um filme com esse título."
+                    }
+                });
+            }
+            if (error?.code === "P2000") {
+                return res.status(400).json({
+                    message: "Error ao criar filme!",
+                    errors: {
+                        field: error?.meta?.column_name || "Campo com valor muito longo",
+                        detail: "O valor enviado é maior do que o permitido para esse campo."
+                    }
+                })
+            };
+            if (error?.code === "P2025") {
+                return res.status(404).json({
+                    message: "O valor enviado não corresponde ao valor esperado pelo banco de dados.",
+                    error: error.message
+                });
+            }
+        }
         console.log(error)
+        next(error);
     }
 }

@@ -57,21 +57,33 @@ const postMovie = async (req, res, next) => {
             movie: newMovie
         });
     } catch (error) {
-        if (error?.code === "P2002" && error?.meta?.target === "title" || error?.meta?.target === "movie_title_key") {
-            return res.status(400).json({
-                message: "Erro ao criar filme!",
-                errors: {
-                    title: "Já existe um filme com esse título."
-                }
-            })
+        {
+            if (error?.code === "P2002" && error?.meta?.target === "title" || error?.meta?.target === "movie_title_key") {
+                return res.status(400).json({
+                    message: "Erro ao criar filme!",
+                    errors: {
+                        title: "Já existe um filme com esse título."
+                    }
+                });
+            }
+            if (error?.code === "P2000") {
+                return res.status(400).json({
+                    message: "Error ao criar filme!",
+                    errors: {
+                        field: error?.meta?.column_name || "Campo com valor muito longo",
+                        detail: "O valor enviado é maior do que o permitido para esse campo."
+                    }
+                })
+            };
+            if (error?.code === "P2025") {
+                return res.status(404).json({
+                    message: "O valor enviado não corresponde ao valor esperado pelo banco de dados.",
+                    error: error.message
+                });
+            }
         }
-        console.error(error);
-        return res.status(500).json({
-            message: "Erro inesperado, tente novamente mais tarde."
-        });
 
-
-        // next(error);
+        next(error);
     }
 
 
