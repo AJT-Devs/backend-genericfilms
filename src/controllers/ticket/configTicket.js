@@ -34,7 +34,9 @@ export default async function configTicket(id){
     }
 }
     
-    const qrcode = await QRCode.toDataURL(`http://localhost:3000/ticket/valid/${reserve.id}`, qrcodeOptions);
+    // const qrcode = await QRCode.toDataURL(`http://localhost:3000/ticket/valid/${reserve.id}`, qrcodeOptions);
+
+    const qrcode = await QRCode.toDataURL(`http://127.0.0.1:5501/adm/screens/validate.html?reserve=${reserve.id}`, qrcodeOptions);
 
     return {        
                     id : reserve.id,
