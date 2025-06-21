@@ -40,8 +40,7 @@ export default function movieTicket(data){
     margin: 0 auto;
     padding: 25px;
     }
-
-    body {
+body {
     position: relative;
     background-color: var(--black);
     color: var(--white);

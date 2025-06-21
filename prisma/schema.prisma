@@ -39,7 +39,7 @@ model movie {
     releaseDate    DateTime  @db.Date
     classification String    @db.Char(2)
     cast           String    @db.VarChar(999)
-    gender         String    @db.VarChar(150)
+    gender         String    @db.VarChar(300)
     poster         String    @db.VarChar(999)
     banner         String    @db.VarChar(999)
     session        session[]

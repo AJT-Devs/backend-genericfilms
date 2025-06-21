@@ -49,7 +49,7 @@ const movieSchema = z.object({
         required_error: 'Gênero é necessário',
         invalid_type_error: 'Gênero deve ser uma string'
     })
-        .max(150, 'Gênero deve ter no máximo 150 caracteres'),
+        .max(300, 'Gênero deve ter no máximo 300 caracteres'),
     poster: z.string({
         required_error: 'Poster é necessário',
         invalid_type_error: 'Poster deve ser uma string'
