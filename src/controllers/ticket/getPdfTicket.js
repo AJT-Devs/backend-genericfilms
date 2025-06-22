@@ -21,7 +21,8 @@ export default async function getPdfTicket(req, res, next) {
     await page.setContent(movieTicket(ticket));
         
     const result = await page.pdf({
-          format: "a4"
+        printBackground: true,
+        format: "a4"
     });
       
     res.setHeader("Content-Disposition", 'attachment; filename="ingresso.pdf"');;

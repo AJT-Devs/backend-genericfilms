@@ -5,192 +5,190 @@ export default function movieTicket(data){
 
     data.isPCD? data.seat = `${data.seat} (PCD)` : data.seat = data.seat;
 
+    data.price = data.typeReserve === "inteira" ? +data.price : +data.price / 2;
     data.price = Number(data.price).toFixed(2).replace(".", ",");
 
     const style = `<style>
     * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Inter, -apple-system, BlinkMacSystemFont, "2aavenir next", avenir, "segoe ui", "helvetica neue", helvetica, Ubuntu, roboto, noto, arial, sans-serif;
-    text-transform: uppercase;
-    list-style: none;
-    text-decoration: none;
-    transition: all .2s ease-in-out;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Inter, -apple-system, BlinkMacSystemFont, "avenir next", avenir, "segoe ui", "helvetica neue", helvetica, Ubuntu, roboto, noto, arial, sans-serif;
+        text-transform: uppercase;
+        list-style: none;
+        text-decoration: none;
     }
 
     svg {
-    display: block;
-    width: 24px;
-    stroke: var(--white);
+        display: block;
+        width: 24px;
+        stroke: var(--white);
     }
 
     :root {
-    --white: #FAFAFA;
-    --black: #0F0F0F;
-    --gray: #3D3D3D;
-    --lite-gray: #969696;
-    --yellow: #EDC526;
+        --white: #FAFAFA;
+        --black: #0F0F0F;
+        --gray: #3D3D3D;
+        --lite-gray: #969696;
+        --yellow: #EDC526;
     }
 
-    header,
-    main,
-    footer {
-    max-width: 1920px;
-    margin: 0 auto;
-    padding: 25px;
+    header, main, footer {
+        max-width: 1920px;
+        margin: 0 auto;
+        padding: 25px;
     }
-body {
-    position: relative;
-    background-color: var(--black);
-    color: var(--white);
-    fill: var(--white);
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-between;
-    / border: 1px solid red; */
-    }
-    .preview-ticket-main{
-    padding: 0;
-    margin: auto;
-    heigth: 90%;
-    width: 90%;
-    & #preview-ticket-div{
-        aspect-ratio: 21 / 29.7;
+    body {
         background-color: var(--white);
-    }
-
-    & .ticket{
         position: relative;
         width: 100%;
-        height: 100%;
+        min-height: 100vh;
         display: flex;
         flex-flow: column nowrap;
-        align-items: center;
-        padding: 30px 60px;
-        gap: 30px;
+        justify-content: space-between;
+    }
 
-        & span {
-            width: clamp(0px, 15vw, 120px);
-            & svg{
-                width: 100%;
-                fill: var(--black);
-                transition: none;
-            }
+    .preview-ticket-main{
+        padding: 0;
+        margin: auto;
+        height: 90%;
+        width: 90%;
+        & #preview-ticket-div{
+            aspect-ratio: 21 / 29.7;
+            background-color: var(--white);
         }
 
-
-        & h1{         
-            text-align: center;
-            color: var(--black);    
-            font-size: clamp(0px, 2vw, 20px);
-            font-weight: 800;
-        }
-
-        .information-session{
+        & .ticket{
+            position: relative;
             width: 100%;
+            height: 100%;
             display: flex;
-            gap: 15px;
+            flex-flow: column nowrap;
+            align-items: center;
+            padding: 30px 60px;
+            gap: 50px;
 
-            .img-poster-div{
-                aspect-ratio: 2/3;
-                max-width: 100px;
-                height: clamp(0px, 20vw, 120px);
-                background-color: var(--gray);
-                border-radius: clamp(0px, 1vw, 10px);
-                
-                img{
+            & span {
+                width: clamp(0px, 15vw, 250px);
+                & svg{
                     width: 100%;
-                    height: 100%;
-                    border-radius: clamp(0px, 15vw, 10px);
-                    object-fit: cover;
-                    display: block;
+                    fill: var(--black);
+                    transition: none;
                 }
             }
 
-            .other-informations{
-                color: var(--black);
 
-                h2{
-                    font-size: clamp(0px, 2vw, 15px);
-                    font-weight: 800;
-                    margin-bottom: 10px;
-                }
+            & h1{         
+                text-align: center;
+                color: var(--black);    
+                font-size: clamp(0px, 3vw, 30px);
+                font-weight: 800;
+            }
 
-                ul{
-                    display: flex;
-                    flex-direction: column;
-                    gap: 5px;
-                    li{
-                        font-weight: 600;
-                        font-size: clamp(0px, 1.2vw, 10px);
-                        list-style: none;
+            .information-session{
+                width: 100%;
+                display: flex;
+                gap: 30px;
+
+                .img-poster-div{
+                    aspect-ratio: 2/3;
+                    max-width: 100px;
+                    height: clamp(0px, 20vw, 250px);
+                    background-color: var(--gray);
+                    border-radius: clamp(0px, 1vw, 20px);
+                    
+                    img{
+                        width: 100%;
+                        height: 100%;
+                        border-radius: clamp(0px, 15vw, 20px);
+                        object-fit: cover;
+                        display: block;
                     }
                 }
-            }
 
-        }
+                .other-informations{
+                    color: var(--black);
 
-        .group-information{
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            color: var(--black);
-            font-weight: 600;
+                    h2{
+                        font-size: clamp(0px, 2.5vw, 25px);
+                        font-weight: 800;
+                        margin-bottom: 20px;
+                    }
 
-            h2{
-                font-size: clamp(0px, 2vw, 15px);
-                font-weight: 800;
-                margin-bottom: 10px;
-            }
-
-            p{
-                font-size: clamp(0px, 1.2vw, 10px);
-                font-weight: 800;
-                margin-bottom: 5px;
-            }
-
-            .poltrona-div{
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 5px 8px;
-                width: fit-content;
-                background-color: var(--yellow);
-                border-radius: clamp(0px, 1vw, 6px);
-                h3{
-                    font-size: clamp(0px, 1.2vw, 10px);
-                    font-weight: 800;
+                    ul{
+                        display: flex;
+                        flex-direction: column;
+                        gap: 5px;
+                        li{
+                            font-weight: 600;
+                            font-size: clamp(0px, 1.5vw, 20px);
+                            list-style: none;
+                        }
+                    }
                 }
+
             }
 
-            .qrcode-ticket{
-                width: 30%;
-                max-width: 120px;
+            .group-information{
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+                color: var(--black);
+                font-weight: 600;
+
+                h2{
+                    font-size: clamp(0px, 2.5vw, 25px);
+                    font-weight: 800;
+                    margin-bottom: 20px;
+                }
+
+                p{
+                    font-size: clamp(0px, 1.5vw, 20px);
+                    font-weight: 800;
+                    margin-bottom: 5px;
+                }
+
+                .poltrona-div{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 5px 8px;
+                    width: fit-content;
+                    background-color: var(--yellow);
+                    border-radius: clamp(0px, 1vw, 6px);
+                    h3{
+                        font-size: clamp(0px, 1.5vw, 20px);
+                        font-weight: 800;
+                    }
+                }
+
+                .qrcode-ticket{
+                    width: 30%;
+                    max-width: 200px;
+                }
+
+                .information-valor-pago{
+                    font-size: clamp(0px, 1.8vw, 25px);
+                    font-weight: 500;
+                    text-transform: none;
+                    color: var(--lite-gray);
+                }
+
+
             }
 
-            .information-valor-pago{
-                font-size: clamp(0px, 1.2vw, 10px);
+            #id-ingresso-p{
+                font-size: clamp(0px, 1.5vw, 25px);
                 font-weight: 500;
-                text-transform: none;
                 color: var(--lite-gray);
+                position: absolute;
+                bottom: 30px;
+                right: 30px;
             }
-
-
-        }
-
-        #id-ingresso-p{
-            font-size: clamp(0px, 1.2vw, 10px);
-            font-weight: 500;
-            color: var(--lite-gray);
-            position: absolute;
-            bottom: 30px;
-            right: 30px;
         }
     }
+    
 }</style>`;
 
 
@@ -218,7 +216,7 @@ body {
 
                 <div class="information-session">
                     <div class="img-poster-div">
-                        <img src="${data.moviePoster}" id="img-poster">
+                        <img src="http://localhost:3000${data.moviePoster}" id="img-poster">
                     </div>
                     <div class="other-informations">
                         <h2>Informações da sessão</h2>
